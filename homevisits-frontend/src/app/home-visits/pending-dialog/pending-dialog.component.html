@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>List Pending Visits</h2>
+<mat-dialog-content *ngFor="let item of data" class="mat-typography">
+ <div class="bordered-shadow p-3 py-4 mb-2">
+     <div class="row">
+         <div class="col-md-6"><span class="badge rounded-pill bg-danger text-white  py-1 px-4">{{item.statusName}}</span>
+         </div>
+         <div class="col-md-6 text-right"><span class="badge rounded-pill  bg-light border  py-1 px-4">{{item.visitNo}}</span></div>
+     </div>
+     <hr>
+     <div class="row">
+       <div class="col-md-12">
+        <span class="time-radio w-100">
+          {{ item.visitDateString }} - {{ item.visitTime }}
+        </span>
+       </div>
+     </div>
+ </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Continue</button>
+</mat-dialog-actions>

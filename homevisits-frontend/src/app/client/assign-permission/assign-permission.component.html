@@ -1,0 +1,24 @@
+<h1 mat-dialog-title >SET_PERMISSIONS </h1>
+<!-- 
+[perfectScrollbar]="" -->
+<mat-dialog-content class="ps" >
+
+    <!-- 
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>كلمة البحث</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>filter_list</mat-icon>
+        </mat-form-field>
+    </p> -->
+
+    <ejs-maskedtextbox #maskObj id="search" placeholder="Search" (change)="searchNodes()"></ejs-maskedtextbox>
+    <div id='treeparent' *ngIf="vm.field">
+        <ejs-treeview #treeview id='treeelement' [fields]='vm.field' [showCheckBox]='showCheckBox' (nodeChecked)='nodeChecked($event)'></ejs-treeview>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="savePermission()">Save</button>
+    <button mat-flat-button mat-dialog-close color="gray">Cancel</button>
+</mat-dialog-actions>

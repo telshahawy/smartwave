@@ -1,0 +1,45 @@
+<div class="inner-content position-relative mt-3 p-4 mb-5 bg-white sys-config text-capitalize">
+    <a [routerLink]="['/data/system-create']" *appIsGranted="[systemParametersPage,viewAction]"
+      class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        System Parameters <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/data/countries-list']" *appIsGranted="[systemParametersPage,viewAction]"
+    class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Countries <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/data/governorates-list']" *appIsGranted="[governoratesPage,viewAction]"
+    class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Governorates <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/client/area-list']" *appIsGranted="[areasPage,viewAction]"
+     class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Areas <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/reasons/list',9]" *appIsGranted="[requestSecondReasonPage,viewAction]"
+     class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Request second visit  Reasons<i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/reasons/list',10]" *appIsGranted="[ReassignReasonPage,viewAction]"
+     class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Re-assign Reasons <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/reasons/list',4]" *appIsGranted="[cancellationReasonPage,viewAction]"
+     class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Cancellation Reasons <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/reasons/list',8]" *appIsGranted="[rejectionReasonPage,viewAction]"
+     class=" sys-config-item bordered-shadow d-flex justify-content-between p-4 font-weight-bold mb-3">
+        Rejection Reasons <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/data/agesegments-list']"  *appIsGranted="[ageSegment,viewAction]"
+    class=" sys-config-item bordered-shadow d-flex
+     justify-content-between p-4 font-weight-bold mb-3">
+        age Segments <i class="icon-back-1 reverse"></i>
+    </a>
+    <a [routerLink]="['/data/terms-and-policies']"  *appIsGranted="[policiesPage,viewAction]"
+    class=" sys-config-item bordered-shadow d-flex
+     justify-content-between p-4 font-weight-bold mb-3">
+        Terms&Policies <i class="icon-back-1 reverse"></i>
+    </a>
+
+</div>

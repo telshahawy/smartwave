@@ -1,0 +1,16 @@
+<button 
+	class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+	type="submit"
+	[disabled]="formInvalid || isLoading"
+	[ngClass]="{'disabled':formInvalid || isLoading}"
+	>
+
+	{{btnLable}}
+	<mat-icon *ngIf="icon">
+		{{icon}}
+	</mat-icon>
+	<mat-spinner *ngIf="isLoading"
+		class="d-inline-block"
+		diameter="20">
+	</mat-spinner>
+</button>

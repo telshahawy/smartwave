@@ -1,0 +1,61 @@
+<div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white ">
+    <form [formGroup]="reasonForm" (ngSubmit)=" onSubmit()">
+        <div class="bordered-shadow mb-4 ">
+            <p  class="font-weight-bold py-4 ">
+              {{reasonId?' Edit ' + getReasonName():' Add '+ getReasonName()}} 
+            </p>
+          
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control"  placeholder=" " formControlName="reasonName">
+                        <label class="float-label ">Reason name</label>
+                    </div>
+
+                    <div *ngIf="f.reasonName.errors && (f.reasonName.touched||submitted)" class="alert alert-danger">
+
+                        <div *ngIf="f.reasonName.errors.required">
+                            Name is required.
+                        </div>
+
+                    </div>
+                </div>
+              
+                <div class="col-lg-4 mb-2 mb-lg-3 d-flex">
+                    Status(Active)
+                    <label class="switch m-0 ml-3">
+                        <input type="checkbox" checked  formControlName="isActive">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div *ngIf="visitId ==8" class="col-lg-4 mb-2 mb-lg-3">
+                    <label id="example-radio-group-label">Reason Action</label>
+                    <label *ngFor="let action of reasonsActions; let i=index;" class="control radio mr-5 mb-2 mb-lg-0">
+                        <input  type="radio" [value]="action.reasonActionId"  formControlName="reasonActionId">
+                        <span class="control-indicator"></span>
+                        {{action.name}}
+                    </label>
+                </div>
+            
+
+
+
+               
+            </div>
+        </div>
+
+
+        <div class="row m-0 justify-content-end">
+
+            <button class="btn form-control btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3 btn-primary  "
+                type="button" (click)="backToList()">Cancel</button>
+
+
+                <div *appIsGranted="[getReasonPage(),createAction]"  style="display: contents;" form-submit-btn [btnLable]="'Save'"
+                [isLoading]="submitted "
+                >
+              </div>   
+        </div>
+    </form>
+
+</div>

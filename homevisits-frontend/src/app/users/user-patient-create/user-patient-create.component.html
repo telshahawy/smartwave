@@ -1,0 +1,137 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form
+    #addressForm="ngForm"
+    (ngSubmit)="addressForm.form.valid && onSubmit(addressForm)"
+    novalidate
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">Patient data</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder=" "
+              ngModel
+              #nameControl="ngModel"
+              required
+            />
+            <label class="float-label">Name</label>
+          </div>
+          <div
+            *ngIf="nameControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="selectedGender"
+              name="area"
+              class="form-control"
+              placeholder=""
+              name="gender"
+              [(ngModel)]="gender"
+              #genderControl="ngModel"
+              required
+            >
+              <option [value]="null" disabled>-- Choose Gender --</option>
+              <option *ngFor="let key of genderType | keys" [value]="key">
+                {{ genderType[key] }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="genderControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="genderControl.errors.required">Gender is required.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              name="birthDate"
+              ngModel
+              #birthdateControl="ngModel"
+              required
+            />
+            <label for="" class="float-label">DOB</label>
+          </div>
+          <div
+            *ngIf="birthdateControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="birthdateControl.errors.required">DOB is required.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="phoneNumber"
+              placeholder="  "
+              maxlength="20"
+              ngModel
+              #mobileControl="ngModel"
+              [(ngModel)]="phoneNumber"
+              required
+              [pattern]="mobNumberPattern"
+              minlength="8"
+            />
+            <label class="float-label">Mobile Number</label>
+          </div>
+          <div
+            *ngIf="mobileControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="mobileControl.errors.required">Mobile is required.</div>
+
+            <div *ngIf="mobileControl?.errors?.maxlength">
+              Mobile Maxmum Length is
+              {{ mobileControl?.errors?.maxlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.minlength">
+              Mobile Minmum Length is
+              {{ mobileControl?.errors?.minlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.pattern">
+              Mobile number not valid (Must Start with zero or +).
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+   
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="reset"
+        (click)="backToSearchPatient()"
+      >
+        Cancel
+      </button>
+      <!-- <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                type="submit">Save</button> -->
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Save'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

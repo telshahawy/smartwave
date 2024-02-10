@@ -1,0 +1,88 @@
+<div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white ">
+    <form [formGroup]="governmentForm" (ngSubmit)=" onSubmit()">
+        <div class="bordered-shadow mb-4 ">
+            <p *ngIf="myaction=='create'" class="font-weight-bold py-4 ">
+                Add New Governorate
+            </p>
+            <p *ngIf="myaction=='edit'" class="font-weight-bold py-4 ">
+                Edit Governorate
+            </p>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+
+
+
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" placeholder=" " formControlName="governateNameEn">
+                        <label class="float-label ">Governorate name</label>
+                    </div>
+
+                    <div *ngIf="f.governateNameEn?.errors  && (f.governateNameEn.touched||submitted)" class="alert alert-danger">
+
+                        <div *ngIf="f.governateNameEn?.errors?.required">
+                            Name is required.
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="select icon-down-arrow w-100">
+                        <select id="selectedCountryId" class="form-control" placeholder="Country"
+                            formControlName="countryId">
+                            <option [value]="null" disabled >-- Choose Country --</option>
+                            <option *ngFor="let country of countries;" [value]="country.countryId">{{country.name}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="f.countryId?.errors  && (f.countryId.touched||submitted)" class="alert alert-danger">
+
+                        <div *ngIf="f.countryId?.errors?.required">
+                            Country is required.
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="email" class="form-control" placeholder=" " formControlName="customerServiceEmail">
+                        <label class="float-label ">Customer service email</label>
+                    </div>
+
+                    <div *ngIf="f.customerServiceEmail?.errors  && (f.customerServiceEmail.touched||submitted)" class="alert alert-danger">
+
+                       
+                        <div *ngIf="f.customerServiceEmail?.invalid">
+                            Customer service email is Invalid.
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+                    Status(Active)
+                    <label class="switch m-0 ml-3">
+                        <input type="checkbox" checked formControlName="isActive">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row m-0 justify-content-end">
+
+            <button class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                type="button" (click)="backToList()">Cancel</button>
+         
+                <div  style="display: contents;" form-submit-btn [btnLable]="'Save'"
+                [isLoading]="submitted "
+                >
+              </div>   
+        </div>
+    </form>
+
+</div>

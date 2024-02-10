@@ -1,0 +1,59 @@
+<form
+  #visitLostTimeForm="ngForm"
+  (ngSubmit)="visitLostTimeForm.form.valid && onSubmit(visitLostTimeForm)"
+>
+  <h1 mat-dialog-title>
+    Visit Lost Time
+    <a href="javascript:;" class="float-right cursor-pointer" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </a>
+  </h1>
+  <div mat-dialog-content>
+    <div
+      class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+    >
+      <div class="bordered-shadow mb-4">
+        <div class="row m-0 py-xl-4 p-2 px-xl-5">
+          <!-- name="street" ngModel #lostTimeControl="ngModel" required -->
+          <div class="col-lg-6 mb-2 mb-lg-3">
+            <div class="form-group mb-0">
+              <!-- name="street" ngModel #lostTimeControl="ngModel" required -->
+              <input
+                type="time"
+                class="form-control"
+                placeholder="  "
+                name="visitTime"
+                ngModel
+                #lostTimeControl="ngModel"
+                required
+              />
+              <label class="float-label">Visit Time</label>
+            </div>
+          </div>
+          <div
+            *ngIf="lostTimeControl.invalid && visitLostTimeForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="lostTimeControl.errors.required">
+              Visit Time is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="reset"
+        (click)="close()"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</form>

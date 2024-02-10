@@ -1,0 +1,203 @@
+<mat-dialog-content style="max-height: none">
+  <div class="mt-4 mb-4 text-center" [hidden]="allowedDates">
+    <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+    <div class="spinner-border text-secondary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <form *ngIf="allowedDates"
+    #reassignChemistForm="ngForm"
+    (ngSubmit)="reassignChemistForm.form.valid && onSubmit(reassignChemistForm)"
+  >
+    <h1 mat-dialog-title>
+      Reassign Chemist
+      <a
+        href="javascript:;"
+        class="float-right cursor-pointer"
+        (click)="close()"
+      >
+        <mat-icon>close</mat-icon>
+      </a>
+    </h1>
+
+    <!-- <div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white "> -->
+
+    <div class="bordered-shadow mb-4">
+      <div class="row m-0 py-xl-4 p-2 px-xl-5 sys-parameters">
+        <div class="col-lg-6 mb-2 mb-lg-6">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="  "
+              [min]="startDate"
+              [max]="endDate"
+              id="visitDate"
+              name="visitDate"
+              (change)="visitDateChanged()"
+              [(ngModel)]="visitDate"
+              required
+              #visitDateControl="ngModel"
+            />
+            <label class="float-label">Visit Date</label>
+          </div>
+          <div
+            *ngIf="visitDateControl.invalid && reassignChemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="visitDateControl.errors.required">
+              Visit Date is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-12"></div>
+        <div class="col-lg-6 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              class="form-control"
+              (change)="chemistChanged()"
+              name="chemistId"
+              [(ngModel)]="chemistId"
+              #chemistControl="ngModel"
+              required
+            >
+              <option [value]="null" disabled>-- Choose Chemist --</option>
+              <option
+                *ngFor="let chemist of chemists"
+                [value]="chemist.chemistId"
+              >
+                {{ chemist.name }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="chemistControl.invalid && reassignChemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="chemistControl.errors.required">
+              Chemist is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-2 mb-lg-6">
+          <div class="form-group mb-0">
+            <!-- <label class="control checkbox"> -->
+            <input
+              type="checkbox"
+              (change)="selectAllChemistsChange($event)"
+              style="margin-top: 15"
+              value="angular"
+            />
+            <!-- <span class="control-indicator  bg-white" ></span> -->
+            Show All Chemist
+            <!-- </label> -->
+          </div>
+        </div>
+        <div class="mt-4 mb-4 text-center" [hidden]="!loading" id="loading">
+          <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+          <div class="spinner-border text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div
+            class="py-xl-4 p-2 px-xl-5 text-center"
+            *ngIf="visitDateControl.value && times?.length > 0"
+          >
+            <label
+              class="time-radio-wrap position-relative"
+              *ngFor="let time of times"
+            >
+              <input
+                type="radio"
+                name="timeZoneGeoZoneId"
+                [(ngModel)]="timeZoneGeoZoneId"
+                [value]="time.timeZoneFrameGeoZoneId"
+                [attr.required]="selectedType"
+                #timeRadioControl="ngModel"
+              />
+              <span class="time-radio w-100">
+                {{ time.timeZoneStartTime }} - {{ time.timeZoneEndTime }}
+              </span>
+            </label>
+            <button
+              type="button"
+              hidden
+              (click)="openVisitLostTimeDialog()"
+              class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4"
+            >
+              Discard
+            </button>
+          </div>
+          <div *ngIf="!visitDateControl.value" style="color: red">
+            Please Choose Visit Date at first
+          </div>
+          <div
+            style="color: red"
+            *ngIf="times?.length == 0 && chemistId && !loading"
+          >
+           No available slots in this area or date
+          </div>
+          <div style="color: red" *ngIf="visitDateControl.value && !chemistId">
+            Please Choose Chemist
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              class="form-control"
+              name="reasonId"
+              [(ngModel)]="reasonId"
+              #reasonControl="ngModel"
+              required
+            >
+              <option [value]="null" disabled>-- Choose Reason --</option>
+              <option *ngFor="let reason of reasons" [value]="reason.reasonId">
+                {{ reason.reasonName }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="reasonControl.invalid && reassignChemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="reasonControl.errors.required">Reason is required.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <textarea
+              type="text"
+              class="form-control"
+              placeholder="  "
+              name="comments"
+              ngModel
+            ></textarea>
+            <label for="" class="float-label">Comments</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="reset"
+        (click)="close()"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+
+    <!-- </div> -->
+    <!-- </div> -->
+  </form>
+</mat-dialog-content>

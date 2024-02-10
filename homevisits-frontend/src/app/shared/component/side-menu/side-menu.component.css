@@ -1,0 +1,16 @@
+.mainLogo{
+    cursor: pointer;
+}
+.togglerBtn{
+    color: white;
+    position: relative;
+    width: 100%;
+    text-align: right;
+}
+.togglerBtn .fa{
+    position: relative;
+    z-index: 999;
+    background-color: #0c306f;
+    padding: 7px 12px;
+    cursor: pointer;
+}

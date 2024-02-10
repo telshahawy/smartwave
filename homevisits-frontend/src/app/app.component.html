@@ -1,0 +1,10 @@
+<div class="flexedBody">
+<app-side-menu [isAuthenticated]="isAuthenticated"></app-side-menu>
+<div class="pagesLayout">
+    <app-header [isAuthenticated]="isAuthenticated" [userName]="userProfile == undefined? undefined:userProfile.UserName" [title]="title"></app-header>
+<!-- <div class="inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white "> -->
+<router-outlet></router-outlet>
+<!-- </div> -->
+<div class="d-flex justify-content-between" app-footer></div>
+</div>
+</div>

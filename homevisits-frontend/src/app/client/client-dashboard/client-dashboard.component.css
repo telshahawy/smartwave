@@ -1,0 +1,29 @@
+.modal-backdrop.show{
+    opacity: 0 !important;
+}
+
+#DuplicateModal .modal-dialog , #DuplicateModal1 .modal-dialog {
+    max-width: 387px;
+    margin: 0  0 0 auto;
+}
+.modal-content{
+    height: 100vh;
+}
+
+.media-body{
+    margin-top: 12px;
+}
+.multi-input, textarea.form-control:focus, textarea.form-control, input.form-control:focus, input.form-control{
+    padding-left: 50px;
+
+}
+
+.modal-body{
+    overflow-y: auto;
+}
+.search-icon{
+    position: absolute;
+    bottom: 50%;
+    left: 5%;
+    transform: translate(30%, 45%);
+}

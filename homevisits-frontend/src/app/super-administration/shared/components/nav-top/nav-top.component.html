@@ -1,0 +1,100 @@
+  <!-- navbar -->
+    <div class=" col-md-6 col-12   d-flex  align-items-center">
+        <!-- back link  -->
+        <a href='#' class="back-btn font-weight-bold text-left text-uppercase text-decoration-none"><i
+                class="icon-back-1"></i> New client</a>
+    </div>
+    <div class="col-md-6 col-12 d-flex flex-row-reverse align-items-center">
+        <a href='#' class="logout text-center">
+            <i class="icon-shutdown"></i>
+        </a>
+        <div class="user-dropdown">
+            <div class="dropdown">
+                <a href='#' (click)="openShowUserPass()"
+                    class="text-decoration-none d-flex flex-row-reverse align-items-center text-right font-weight-bold text-uppercase  dropdown-toggle"
+                    type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img src="../../../assets/logo-smart-technology-white.png" class="rounded-circle" alt="">
+                    <div>
+                        Seif <br> Atalla
+                    </div>
+
+
+
+                </a>
+                <!-- disabled inputs for change -->
+                <div [ngClass]="{'show':isChangeUserPass}" class=" dropdown-menu user-dropdown-disabled dropdown-menu-right"
+                    aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item">
+                        <div
+                            class="form-group mb-0 d-flex align-items-center">
+                            <input type="text" class="form-control bg-transparent" value="seif"
+                                placeholder="  " disabled>
+                            <label class="float-label ">username</label>
+                            <i (click)="openChangeUser()" class="icon-edit for-user"></i>
+                        </div>
+                    </a>
+                    <a class="dropdown-item">
+
+                        <div
+                            class="form-group mb-0 d-flex align-items-center">
+                            <input type="password" value="1111111111" disabled
+                                class="form-control bg-transparent" placeholder=" ">
+                            <label class="float-label">Password</label>
+                            <i (click)="openChangePassword()" class="icon-edit for-pass"></i>
+                        </div>
+                    </a>
+                </div>
+                <!-- change username -->
+                <form [ngClass]="{'show':isChangeUser}" class="show dropdown-menu change-username manual-dropdown dropdown-menu-right">
+                    <a class="dropdown-item">
+                        <span class="d-block text-uppercase font-weight-bold ">Change username</span>
+                        <div
+                            class="form-group my-2 d-flex align-items-center">
+
+                            <input type="text" placeholder=" " class="form-control" value="seif">
+                            <label class="float-label ">username</label>
+                        </div>
+                        <div class="btns pt-3 mt-3">
+                            <button  (click)="isChangeUser =false" class=" btn form-control btn-primary btn-bordered col-6 font-weight-bold"
+                                type="reset">Cancel</button>
+                            <button class="btn form-control btn-primary col-6 font-weight-bold"
+                                type="submit">Save</button>
+                        </div>
+                    </a>
+                </form>
+                <!-- change password -->
+                <form [ngClass]="{'show':isChangePass}" class="show dropdown-menu change-password manual-dropdown dropdown-menu-right">
+                    <a class="dropdown-item">
+                        <span class="d-block text-uppercase font-weight-bold ">Change password</span>
+                        <div
+                            class="form-group my-2 d-flex align-items-center">
+
+                            <input type="password" placeholder=" " class="form-control">
+                            <label class="float-label ">Old password</label>
+                        </div>
+                        <div
+                            class="form-group my-2 d-flex align-items-center">
+
+                            <input type="password" placeholder=" " class="form-control">
+                            <label class="float-label ">New password</label>
+                        </div>
+                        <div
+                            class="form-group my-2 d-flex align-items-center">
+
+                            <input type="password" placeholder=" " class="form-control">
+                            <label class="float-label ">Confirm new password</label>
+                        </div>
+                        <div class="btns pt-3 mt-3">
+                            <button  (click)="isChangePass =false" class="b tn form-control btn-primary btn-bordered col-6 font-weight-bold"
+                                type="reset">Cancel</button>
+                            <button class="btn form-control btn-primary col-6 font-weight-bold"
+                                type="submit">Save</button>
+                        </div>
+                    </a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+

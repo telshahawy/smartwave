@@ -1,0 +1,275 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form
+    #addressForm="ngForm"
+    (ngSubmit)="addressForm.form.valid && onSubmit(addressForm)"
+    novalidate
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">Patient data</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder=" "
+              ngModel
+              #nameControl="ngModel"
+              required
+            />
+            <label class="float-label">Name</label>
+          </div>
+          <div
+            *ngIf="nameControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="selectedGender"
+              name="area"
+              class="form-control"
+              placeholder=""
+              name="gender"
+              [(ngModel)]="gender"
+              #genderControl="ngModel"
+              required
+            >
+              <option [value]="null" disabled>-- Choose Gender --</option>
+              <option *ngFor="let key of genderType | keys" [value]="key">
+                {{ genderType[key] }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="genderControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="genderControl.errors.required">Gender is required.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              name="birthDate"
+              ngModel
+              #birthdateControl="ngModel"
+              required
+            />
+            <label for="" class="float-label">DOB</label>
+          </div>
+          <div
+            *ngIf="birthdateControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="birthdateControl.errors.required">DOB is required.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="phoneNumber"
+              placeholder="  "
+              maxlength="20"
+              ngModel
+              #mobileControl="ngModel"
+              [(ngModel)]="phoneNumber"
+              required
+              [pattern]="mobNumberPattern"
+              minlength="8"
+            />
+            <label class="float-label">Mobile Number</label>
+          </div>
+          <div
+            *ngIf="mobileControl.invalid && addressForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="mobileControl.errors.required">Mobile is required.</div>
+
+            <div *ngIf="mobileControl?.errors?.maxlength">
+              Mobile Maxmum Length is
+              {{ mobileControl?.errors?.maxlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.minlength">
+              Mobile Minmum Length is
+              {{ mobileControl?.errors?.minlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.pattern">
+              Mobile number not valid (Must Start with zero or +).
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    <!-- <div class="bordered-shadow mb-4 ">
+            <p class="font-weight-bold py-4 ">
+                Address
+            </p>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="select icon-down-arrow w-100">
+                       
+                        <div class="select icon-down-arrow w-100">
+                            <select id="selectedCountryId" name="country" class="form-control" placeholder="Country"
+                                    [(ngModel)]="selectedCountryId" (ngModelChange)='onOptionsSelected($event)'  >
+                                    <option [ngValue]="undefined" disabled>-- Choose Country --</option>
+                                    <option *ngFor="let country of countries;" [value]="country.countryId">{{country.name}}</option>
+                                  </select>
+                        </div>
+                      
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="select icon-down-arrow w-100">
+                        <select id="selectedGovernateId" name="governate" (ngModelChange)='onGovernateOptionsSelected($event)' class="form-control" placeholder=""
+                        [(ngModel)]="selectedGovernateId">
+                        <option [ngValue]="undefined" disabled>-- Choose Governate --</option>
+                        <option *ngFor="let governate of governats;" [value]="governate.governateId">{{governate.name}}</option>
+                      </select>
+                      
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="select icon-down-arrow w-100">
+                        <select id="selectedAreaId"  name="geoZoneId" class="form-control" placeholder="" [(ngModel)]="geoZoneId" #areaControl="ngModel" required>
+                        <option [value]="null" disabled>-- Choose Area --</option>
+                        <option *ngFor="let area of areas;" [value]="area.geoZoneId">{{area.name}}</option>
+                      </select>
+                      
+                    </div>
+                    <div *ngIf="areaControl.invalid && addressForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="areaControl.errors.required">
+                    Area is required.
+                  </div>
+                  
+                                </div>
+                </div>
+        
+                <div class="col-lg-2 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" placeholder="  " name="building" ngModel ngModel  #buildingControl="ngModel" required>
+                        <label for="" class="float-label ">Building</label>
+                    </div>
+                    <div *ngIf="buildingControl.invalid && addressForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="buildingControl.errors.required">
+                    Building is required.
+                  </div>
+                  
+                                </div>
+                </div>
+        
+                <div class="col-lg-6 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" placeholder="  " name="street" ngModel #streetControl="ngModel" required>
+                        <label for="" class="float-label ">Street</label>
+                    </div>
+                    <div *ngIf="streetControl.invalid && addressForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="streetControl.errors.required">
+                    Street is required.
+                  </div>
+                  
+                                </div>
+                </div>
+        
+                <div class="col-lg-2 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" placeholder="  " name="floor" ngModel #floorControl="ngModel" required>
+                        <label for="" class="float-label ">floor</label>
+                    </div>
+                    <div *ngIf="floorControl.invalid && addressForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="floorControl.errors.required">
+                    floor is required.
+                  </div>
+                  
+                                </div>
+                </div>
+        
+                <div class="col-lg-2 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" placeholder="  " name="flat" ngModel #flatControl="ngModel" required>
+                        <label for="" class="float-label ">flat</label>
+                    </div>
+                    <div *ngIf="flatControl.invalid && addressForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="flatControl.errors.required">
+                    flat is required.
+                  </div>
+                  
+                                </div>
+                </div>
+        
+               
+              <div class="col-lg-12 mb-2 mb-lg-3">
+
+              
+                  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+              <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+              (dragEnd)="markerDragEnd($event)"   ></agm-marker>
+          </agm-map>
+           
+              
+                <div fxFlex fxFlexAlign="center"  class="autocomplete-container">
+                  <mat-google-maps-autocomplete  addressLabelText="Location"  invalidErrorText=''  (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                                (onLocationSelected)="onLocationSelected($event)"
+                                                (onGermanAddressMapped)="onGermanAddressMapped($event)">
+                  </mat-google-maps-autocomplete>
+                 
+                  <label>Latitude : </label> {{latitude}} <br>
+                  <label>Longitude : </label> {{longitude}}
+                </div>
+              
+              </div>
+               
+                <h5 class="col-12 font-weight-bold px-0 py-3">Additional information</h5>
+                <div class="col-lg-5 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <textarea type="text" class="form-control" placeholder="  "   name="additionalInfo" ngModel></textarea>
+                     
+                    </div>
+                   
+                </div>
+            </div>
+        </div> -->
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="reset"
+        (click)="backToSearchPatient()"
+      >
+        Cancel
+      </button>
+      <!-- <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                type="submit">Save</button> -->
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Save'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

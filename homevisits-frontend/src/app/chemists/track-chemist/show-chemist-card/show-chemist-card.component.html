@@ -1,0 +1,49 @@
+<div mat-dialog-content>
+  <div class="row col-lg">
+    <div class="col-md-10 d-flex align-items-center col-12">
+      <div class="badge badge-primary rounded-circle p-3 mr-2">{{getInitails(data.name)}}</div>
+      <div>
+        <div class="font-weight-bold">{{data.name}}</div>
+        <div>{{data.phoneNumber}} - {{data.areaName}}</div>
+      </div>
+    </div>
+    <button class="ml-4 col-md-1" mat-icon-button [mat-dialog-close]="true" cdkFocusInitial align="end">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <div class="col-12 pl-0">
+    <div class="form-group mb-0">
+      <input type="text" class="form-control bg-white" disabled=""
+        value="{{getVisitInfo(data.visitNo,data.visitDate,data.visitTime)}}" />
+      <label class="float-label">LAST COMPLETE VISIT</label>
+    </div>
+  </div>
+  <div class="col-12 pl-0">
+    <div class="form-group mb-0">
+      <input type="text" class="form-control bg-white" disabled=""
+        value="{{data.lastTrackingTime | date: 'dd/MM/yyyy hh:mm'}} {{'('+ data.timePassed+')'}}" placeholder="  " />
+      <label class="float-label">LAST ACTIVITY</label>
+    </div>
+  </div>
+  <div class="col-8 pl-0">
+    <a href="{{data.locationUrl}}" target="_blank" class="form-group mb-0">
+      <input type="text" class="form-control bg-white text-underline pointer" disabled="" value="Open link"
+        placeholder="  " />
+      <label class="float-label">Current location</label>
+    </a>
+  </div>
+  <div class="col-8 pl-0 pl-0">
+    <div class="form-group mb-0">
+      <input type="text" class="form-control bg-white" disabled=""
+        value="{{data.mobileBatteryPercentage}} {{'('+ data.timePassed+')'}}" placeholder="  " />
+      <label class="float-label">Last battery percentage</label>
+    </div>
+  </div>
+  <div class="col-12 pb-3">
+    <button class="btn form-control form-control-sm btn-primary btn-bordered font-weight-bold"
+     data-toggle="modal"
+      (click)="showSchedule()">
+      View schedule
+    </button>
+  </div>
+</div>

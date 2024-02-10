@@ -1,0 +1,160 @@
+<div class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid ">
+    <!-- change id's and data-targets to what you need  -->
+    <div>
+
+        <a href="javascript:;" class="text-decoration-none  pointer d-flex justify-content-between align-items-center"
+            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h6 class="font-weight-bold m-0 text-uppercase">SEARCH {{getReasonName()}} </h6>
+            <p class="m-0" (click)="showForm?showForm=false:showForm=true">
+                4 results found
+
+                <i class="icon-down-arrow" [ngClass]="{'rotated':showForm}"></i>
+            </p>
+        </a>
+
+        <div *ngIf="showForm">
+            <form #roleForm="ngForm">
+                <div class="mb-4 ">
+
+                    <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" placeholder="  " name="reasonId"
+                                    [(ngModel)]="reasonId">
+                                <label class="float-label ">Reason Id</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" placeholder="  " name="ReasonName"
+                                    [(ngModel)]="ReasonName">
+                                <label class="float-label ">Reason Name</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="select icon-down-arrow w-100">
+                                <select id="StatusType" name="area" class="form-control" placeholder=""
+                                    [(ngModel)]="roleStatusType">
+                                    <option [ngValue]="undefined">-- Select Status --</option>
+                                    <option *ngFor="let status of roleSatuskeys(roleStatus)"
+                                        [ngValue]="roleStatus[status]">{{status}}</option>
+                                </select>
+                                <!-- <label class="float-label ">Status</label> -->
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="select icon-down-arrow w-100">
+                                <select id="roleReasonsType" name="area" class="form-control" placeholder=""
+                                    [(ngModel)]="roleReasonsType">
+                                    <option [ngValue]="undefined">-- Select Reasons --</option>
+                                    <option *ngFor="let status of reasonskeys(reasons)" [ngValue]="reasons[status]">
+                                        {{status}}</option>
+                                </select>
+                                <!-- <label class="float-label ">Status</label> -->
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+
+                <div class="row m-0 justify-content-end">
+                    <button
+                        class="btn form-control btn-primary btn-bordered border-0  col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                        type="button" (click)="clear(roleForm)"><i class="icon-garbage mr-1"></i>CLEAR</button>
+                    <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold" type="submit"
+                        (click)="search()">Search</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="inner-content have-table position-relative  p-4 mb-5 bg-white container-fluid ">
+    <div class="table-meta mb-3">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-5">
+                <button (click)="gotoEdit()" *appIsGranted="[getReasonPage(),createAction]"
+                    class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4 ">
+                    Add {{getReasonName()}}
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+        <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+        <div class="spinner-border text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+        No Data Avaliable
+    </div>
+    <div class="table-wrap table-responsive">
+
+        <!-- <perfect-scrollbar> -->
+        <!-- *ngIf="data?.items.length>0"  -->
+
+        <div style="max-width: 100%" *ngIf="data?.response.reasons.length>0">
+
+            <table class="table m-0" mat-table [dataSource]="dataSource">
+               
+                <!-- Position Column -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element">
+                        <i *ngIf="element.isActive" class="icon-check"></i>
+                        <i *ngIf="!element.isActive" class="icon-error"></i>
+                    </td>
+
+                </ng-container>
+                <ng-container matColumnDef="roleId">
+                    <th mat-header-cell *matHeaderCellDef> Reason ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.reasonId}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Reason Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.reasonName}} </td>
+                </ng-container>
+
+
+                <!-- Weight Column -->
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">
+                        Actions
+                    </th>
+                    <td mat-cell *matCellDef="let row" class="white-space-nowrap">
+                        <a *appIsGranted="[getReasonPage(),updateAction]" href="javascript:;" class="icon-edit mr-2" (click)="navigate(row.reasonId)">
+                        </a>
+
+                        &nbsp;
+                        <a *appIsGranted="[getReasonPage(),DeleteAction]" href="javascript:;" class="icon-garbage" (click)="openDeleteDialog(row.reasonId)">
+
+                        </a>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <!-- [pageSizeOptions]="[10, 25, 50, 100]" -->
+
+        </div>
+        <!-- </perfect-scrollbar> -->
+
+    </div>
+    <div class="table-meta mt-3">
+        <div class="row">
+            <mat-paginator [hidden]="!data?.response.totalCount" [length]="data?.response.totalCount"
+                [hidePageSize]="true" [pageIndex]="data?.response.currentPageIndex -1"
+                [pageSize]="data?.response.pageSize" (page)="search($event)" showFirstLastButtons>
+            </mat-paginator>
+
+        </div>
+
+    </div>
+
+</div>

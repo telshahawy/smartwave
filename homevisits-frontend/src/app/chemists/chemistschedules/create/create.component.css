@@ -1,0 +1,21 @@
+.dates{
+    position: relative;
+    top: 8px;
+}
+
+agm-map{
+    height: 500px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+.headerLabel{
+    margin-top: 10px;
+}
+.chemistName{
+    background-color: whitesmoke;
+    height: 60px;
+    border-radius: 30px;
+    padding: 20px;
+    color: gray;
+}

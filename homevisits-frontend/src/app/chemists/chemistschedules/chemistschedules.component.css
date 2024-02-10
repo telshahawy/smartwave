@@ -1,0 +1,48 @@
+.Searches{
+    display: flex;
+    justify-content: flex-end;
+}
+.Searches .areas{
+    width: 200px;
+    margin: 0 18px;
+}
+.Searches .areas select{
+    height: 45px;
+}
+
+.applay{
+    /* border-right: 1px solid #c1c1c1; */
+}
+.applay button{
+    border: 1.5px solid #224ba0;
+    background-color: transparent;
+    color: #224ba0;
+    padding: 7px;
+    font-weight: 500;
+    min-width: 100px;
+    border-radius: 25px;
+    /* position: relative;
+    left: -50px; */
+}
+.applay button:hover{
+    background-color:#224ba0;
+    color: white;
+    transition: .3s ease-in-out;
+}
+.actions {
+    border-radius: 30px;
+    height: 45px;
+    padding: 0 5px;
+    width: 100px;
+    margin: auto;
+}
+
+
+
+.modal{
+    z-index: 122222222;
+}
+
+.inner-content{
+    z-index: unset;
+}

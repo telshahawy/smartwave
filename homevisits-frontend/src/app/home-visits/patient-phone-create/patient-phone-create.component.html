@@ -1,0 +1,54 @@
+<form [formGroup]="phoneForm" (ngSubmit)="createPhoneNumber()">
+
+<mat-dialog-content
+  ><div
+    class="add-client inner-content position-relative bg-white"
+  >
+      <div class="bordered-shadow mb-4">
+        <p class="font-weight-bold py-4">Add New Phone Number</p>
+
+        <div class="row m-0 py-xl-4 p-2 px-xl-5">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control mb-2"
+                placeholder=" "
+                formControlName="phone"
+              />
+              <label class="float-label"> Phone Number </label>
+              <div
+                *ngIf="f.phone.invalid && (f.phone.touched || submitted)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="f.phone?.errors?.required">Mobile is required.</div>
+                <div *ngIf="f.phone?.errors?.minlength">
+                  Mobile Minimum Length is
+                  {{ f.phone?.errors?.minlength?.requiredLength }}
+                </div>
+                <div *ngIf="f.phone?.errors?.maxlength">
+                  Mobile Maximum Length is
+                  {{ f.phone?.errors?.maxlength?.requiredLength }}
+                </div>
+                <div *ngIf="f.phone?.errors?.pattern">
+                  Mobile number not valid (Must Start with zero or +).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0 justify-content-end"></div>
+    </div
+></mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <div
+    style="display: contents"
+    form-submit-btn
+    [btnLable]="'Save'"
+    [isLoading]="submitted"
+  ></div>
+</mat-dialog-actions>
+</form>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GoogleApi" Version="3.10.5" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeVisits\SW.HomeVisits.Application.Abstract\SW.HomeVisits.Application.Abstract.csproj" />
+    <ProjectReference Include="..\HomeVisits\SW.HomeVisits.Infrastructure.ReadModel\SW.HomeVisits.Infrastructure.ReadModel.csproj" />
+  </ItemGroup>
+
+</Project>

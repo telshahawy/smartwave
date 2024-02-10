@@ -1,0 +1,13 @@
+.actionDrop .select{
+    max-width: 200px;
+}
+.mat-column-select {
+    overflow: initial;
+  }
+  .actions {
+    border-radius: 30px;
+    height: 45px;
+    padding: 0 5px;
+    width: 100px;
+    margin: auto;
+}

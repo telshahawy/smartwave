@@ -1,0 +1,97 @@
+<aside
+  class="sidebar"
+  *ngIf="isAuthenticated"
+  [ngClass]="{ sidebarActive: showSide }"
+>
+  <div class="togglerBtn">
+    <i
+      class="fa fa-long-arrow-right"
+      aria-hidden="true"
+      (click)="showSide ? (showSide = false) : (showSide = true)"
+    ></i>
+  </div>
+  <img
+    src="assets/alfa-logo-white.png"
+    alt=""
+    class="w-100 d-block py-4 mx-auto mainLogo"
+  />
+  <div class="separator mx-auto"></div>
+  <!--<a [routerLink]="['/client']" routerLinkActive="active">
+        <img src="assets/home.svg" alt="" class="svg">
+        Dashboard
+    </a> -->
+
+  <div *ngFor="let item of menuPages">
+    <a
+      *ngIf="item.hasUrl && item.parentId == null"
+      [routerLink]="[item.menuElements.routerLink]"
+      routerLinkActive="active"
+    >
+      <img src="{{ item.menuElements.imgSrc }}" alt="" class="svg" />
+      {{ item.name }}
+    </a>
+    <a
+      *ngIf="item.parentId == null && !item.hasUrl"
+      (click)="openNav(item.menuElements.collapseId)"
+      data-toggle="collapse"
+      class="currentParent"
+      href="#{{ item.menuElements.collapseId }}"
+      role="button"
+      aria-expanded="false"
+      aria-controls="{{ item.menuElements.collapseId }}"
+    >
+      <img src="{{ item.menuElements.imgSrc }}" alt="" class="svg" />
+      {{ item.name }}
+      <i
+        [class.active-route]="isOpenNav == item.menuElements.collapseId"
+        class="icon-down-arrow position-absolute"
+      ></i>
+    </a>
+    <div
+      *ngIf="item.parentId == null && !item.hasUrl"
+      class="collapse"
+      id="{{ item.menuElements.collapseId }}"
+    >
+      <div *ngFor="let child of item.children">
+        <a
+          *ngIf="child.hasUrl"
+          [routerLink]="[child.menuElements.routerLink]"
+          routerLinkActive="active"
+        >
+          <img src="{{ child.menuElements.imgSrc }}" alt="" class="svg" />
+          {{ child.name }}
+        </a>
+        <a
+          *ngIf="!child.hasUrl"
+          (click)="openNav(child.menuElements.collapseId)"
+          data-toggle="collapse"
+          class="currentParent"
+          href="#{{ child.menuElements.collapseId }}"
+          role="button"
+          aria-expanded="false"
+          aria-controls="{{ child.menuElements.collapseId }}"
+        >
+          <img src="{{ child.menuElements.imgSrc }}" alt="" class="svg" />
+          {{ child.name }}
+          <i
+            [class.active-route]="isOpenNav == child.menuElements.collapseId"
+            class="icon-down-arrow position-absolute"
+          ></i>
+        </a>
+        <div
+          *ngIf="!child.hasUrl"
+          class="collapse"
+          id="{{ child.menuElements.collapseId }}"
+        >
+          <!-- <div *ngFor="let lvl2Child of child.children">
+            <a *ngIf="lvl2Child.hasUrl" [routerLink]="[lvl2Child.menuElements.routerLink]"
+              routerLinkActive="active">
+              <img src='{{lvl2Child.menuElements.imgSrc}}' alt="" class="svg">
+              {{lvl2Child.name}}
+            </a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

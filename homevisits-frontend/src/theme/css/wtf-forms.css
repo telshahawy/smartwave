@@ -1,0 +1,556 @@
+
+
+.control {
+  position: relative;
+  display: inline-block;
+  padding-left: 35px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* opacity: 0.6; */
+  color: rgb(27 38 60 / 0.6);
+}
+
+.control input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  /* Put the input behind the label so it doesn't overlay text */
+}
+.control.checkbox-notxt .control-indicator {
+position: static;
+}
+.control-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+  line-height: 1rem;
+  font-size: 65%;
+  color: #F4F4F4;
+  text-align: center;
+  background-color: #F4F4F4;
+  background-size: 50% 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: solid 1px rgba(0, 0, 0, .15);
+}
+.td-bg-red {
+  background-color: #FACDCF;
+}
+/* Hover state */
+/* Uncomment if you need it, but be aware of the sticky iOS states.
+.control:hover .control-indicator {
+  color: #fff;
+  background-color: #ccc;
+}
+*/
+
+/* Focus */
+.control input:checked~.control-indicator {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0C306F;
+  width: 18px;
+  height: 18px;
+}
+
+/* Checked state */
+.control input:checked~.control-indicator {
+  color: rgb(12 48 111 / .6);
+  background-color: #0C306F;
+}
+
+/* Active */
+.control input:active~.control-indicator {
+  color: #fff;
+  background-color: #84c6ff;
+}
+
+/* Checkbox modifiers */
+.checkbox .control-indicator {
+  border-radius: .25rem;
+}
+
+.checkbox input:checked~.control-indicator {
+  background-image: url("../img/checked.svg");
+  background-color: #0C306F !important;
+  box-shadow: none;
+  width: 24px;
+  height: 24px;
+  background-size: 14px;
+}
+
+/* Radio modifiers */
+.radio .control-indicator {
+  border-radius: 50%;
+}
+
+.radio input:checked~.control-indicator {
+  background: #0C306F;
+}
+
+/* Alternately, use another character */
+.control-x input:checked~.control-indicator {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iOHB4IiBoZWlnaHQ9IjhweCIgdmlld0JveD0iMCAwIDggOCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgOCA4IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xLjQsMEwwLDEuNGwwLjcsMC43bDEuOCwxLjhMMC43LDUuN0wwLDYuNGwxLjQsMS40bDAuNy0wLjdsMS44LTEuOGwxLjgsMS44bDAuNywwLjdsMS40LTEuNEw3LjEsNS43DQoJTDUuMywzLjlsMS44LTEuOGwwLjctMC43TDYuNCwwTDUuNywwLjdMMy45LDIuNUwyLjEsMC43QzIuMSwwLjcsMS40LDAsMS40LDB6Ii8+DQo8L3N2Zz4NCg==);
+}
+
+.control-dash input:checked~.control-indicator {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iOHB4IiBoZWlnaHQ9IjhweCIgdmlld0JveD0iMCAwIDggOCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgOCA4IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDN2Mmg4VjNIMHoiLz4NCjwvc3ZnPg0K)
+}
+
+
+
+/*
+ * Select
+ */
+
+.select {
+  position: relative;
+  display: inline-block;
+}
+
+.select select,
+.file-custom {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  height: 60px;
+  background: rgba(0, 0, 0, .04);
+  border: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+  border-radius: 30px;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  line-height: 24px;
+  color: rgba(27, 38, 60, .6);
+}
+
+/* Undo the Firefox inner focus ring */
+.select select:focus:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+/* Dropdown arrow */
+.select:before {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  pointer-events: none;
+  font-size: 24px;
+  color: #1b263c;
+  opacity: 0.6;
+}
+
+/* Hover state */
+/* Uncomment if you need it, but be aware of the sticky iOS states.
+.select select:hover {
+  background-color: #ddd;
+}
+*/
+
+/* Focus */
+.select select:focus {
+  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
+}
+
+/* Active/open */
+.select select:active {
+  color: #fff;
+  background-color: #0074d9;
+}
+
+/* Hide the arrow in IE10 and up */
+.select select::-ms-expand {
+  display: none;
+}
+
+/* Media query to target Firefox only */
+@-moz-document url-prefix() {
+
+  /* Firefox hack to hide the arrow */
+  .select select {
+    text-indent: 0.01px;
+    text-overflow: '';
+    padding-right: 1rem;
+  }
+
+  /* <option> elements inherit styles from <select>, so reset them. */
+  .select option {
+    background-color: #fff;
+  }
+}
+
+/* IE9 hack to hide the arrow */
+@media screen and (min-width:0\0) {
+  .select select {
+    z-index: 1;
+    padding: .5rem 1.5rem .5rem 1rem;
+  }
+
+  .select:after {
+    z-index: 5;
+  }
+
+  .select:before {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    bottom: 0;
+    z-index: 2;
+    content: "";
+    display: block;
+    width: 1.5rem;
+    background-color: #f4f4f4;
+  }
+
+  .select select:hover,
+  .select select:focus,
+  .select select:active {
+    color: #555;
+    background-color: #f4f4f4;
+  }
+}
+
+
+
+/*
+ * File
+ */
+
+.file {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 100%;
+}
+
+.file input {
+  margin: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  max-width: 100%;
+}
+
+.file-custom {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  line-height: 60px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.file-custom:after {
+  content: "Choose file...";
+}
+
+.file-custom:before {
+  position: absolute;
+  top: 7.5px;
+  right: 7.5px;
+  z-index: 6;
+  display: block;
+  content: "Browse";
+  height: 45px;
+  padding: .5rem 1rem;
+  background-color: #224BA0;
+  border-color: #224BA0;
+  border-width: 2px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  line-height: 30px;
+  color: #fff;
+}
+
+/* Focus */
+.file input:focus~.file-custom {
+  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
+}
+
+
+
+/*
+ * Progress
+ */
+
+.progress {
+  display: inline-block;
+  height: 1rem;
+}
+
+.progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Remove Firefox and Opera border */
+  border: 0;
+  /* IE10 uses `color` to set the bar background-color */
+  color: #0074d9;
+}
+
+.progress[value]::-webkit-progress-bar {
+  background-color: #f4f4f4;
+  border-radius: .2rem;
+}
+
+.progress[value]::-webkit-progress-value {
+  background-color: #0074d9;
+  border-top-left-radius: .2rem;
+  border-bottom-left-radius: .2rem;
+}
+
+.progress[value="100"]::-webkit-progress-value {
+  border-top-right-radius: .2rem;
+  border-bottom-right-radius: .2rem;
+}
+
+/* Firefox styles must be entirely separate or it busts Webkit styles. */
+@-moz-document url-prefix() {
+  .progress[value] {
+    background-color: #f4f4f4;
+    border-radius: .2rem;
+  }
+
+  .progress[value]::-moz-progress-bar {
+    background-color: #0074d9;
+    border-top-left-radius: .2rem;
+    border-bottom-left-radius: .2rem;
+  }
+
+  .progress[value="100"]::-moz-progress-bar {
+    border-top-right-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+  }
+}
+
+/* IE9 hacks to accompany custom markup. We don't need to scope this via media queries, but I feel better doing it anyway. */
+@media screen and (min-width:0\0) {
+  .progress {
+    background-color: #f4f4f4;
+    border-radius: .2rem;
+  }
+
+  .progress-bar {
+    display: inline-block;
+    height: 1rem;
+    text-indent: -999rem;
+    /* Simulate hiding of value as in native `<progress>` */
+    background-color: #0074d9;
+    border-top-left-radius: .2rem;
+    border-bottom-left-radius: .2rem;
+  }
+
+  .progress[width="100%"] {
+    border-top-right-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+  }
+}
+
+
+/*
+ * Control layouts
+ */
+
+.controls-stacked {
+  margin: 1rem 0;
+}
+
+.controls-stacked .control,
+.controls-stacked .progress {
+  display: block;
+}
+
+.controls-stacked .control+.control,
+.controls-stacked .progress+.progress {
+  margin-top: .5rem;
+}
+
+.controls-inline {
+  margin: 1rem 0;
+}
+
+.controls-inline .control {
+  display: inline-block;
+  height: 1rem;
+}
+
+.controls-inline .control+.control {
+  margin-left: 1rem;
+}
+
+
+/* switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 35px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #F4F4F4;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 35px;
+  width: 35px;
+  left: 0;
+  bottom: 0px;
+  background-color: #7C7D7E;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #F4F4F4;
+}
+
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(35px);
+  -ms-transform: translateX(35px);
+  transform: translateX(35px);
+  background-color: #0C306F;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 20px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* selected image  */
+.selected-item {
+  max-width: calc(100% - 122px);
+  height: 27px;
+  background: #d4e0fa;
+  border: 1px solid #acc7ff;
+  display: inline-block !important;
+  z-index: 10;
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  display: none;
+}
+
+.selected-item img {
+  width: 23px;
+  height: 23px;
+  border-radius: 2px;
+
+}
+
+.selected-item .img-url {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  width: calc(100% - 28px);
+  float: left;
+  margin-left: 5px;
+}
+
+.selected-item .img-preview {
+  width: 152px;
+  height: 142px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  bottom: 35px;
+  display: none;
+  object-fit: contain;
+}
+
+.selected-item:hover .img-preview {
+  display: block;
+}
+
+
+.collapse-wrap [data-toggle="collapse"] {
+  left: -31px;
+  top: -5px;
+
+}
+
+.collapse-wrap [data-toggle="collapse"][aria-expanded="true"] {
+  transform: rotate(45deg);
+}
+
+.time-radio {
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.87);
+  padding: 6px 30px;
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+.time-radio-wrap input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.time-radio-wrap input:checked + .time-radio {
+
+background: #d4e1fa;
+border: 1px solid #aec9f7;
+
+}
+.time-radio.active{
+  background: #d4e1fa;
+border: 1px solid #aec9f7;
+}
+.address-radio .control-indicator {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.address-radio .address-name {
+  color: #000000;
+  
+}

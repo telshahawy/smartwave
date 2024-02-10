@@ -1,0 +1,208 @@
+<div
+  class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid"
+>
+  <div
+    class="inner-content have-table position-relative p-4 mb-5 bg-white container-fluid"
+  >
+    <div class="table-meta mb-3">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+          <button
+            [routerLink]="[
+              '/chemists/chemist-schedules/' + chemistId + '/create/' + userName
+            ]"
+            class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4"
+          >
+            Create new Schedule
+          </button>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+          <div class="Searches">
+            <div class="areas">
+              <select
+                name="Area"
+                class="form-control"
+                placeholder="Area"
+                [(ngModel)]="selectedAreaId"
+              >
+                <option [ngValue]="undefined">Areas</option>
+                <option *ngFor="let area of areas" [value]="area.id">
+                  {{ area.name }}
+                </option>
+              </select>
+            </div>
+            <div class="dates">
+              <mat-form-field appearance="fill">
+                <!-- <mat-label>Enter a date range</mat-label> -->
+                <mat-date-range-input [rangePicker]="picker">
+                  <input
+                    matStartDate
+                    placeholder="From / "
+                    [(ngModel)]="StartDate"
+                  />
+                  <input matEndDate placeholder="To" [(ngModel)]="EndDate" />
+                </mat-date-range-input>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+            <div class="applay">
+              <button type="button" (click)="search()">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div
+      class="no-results-found rounded mx-auto text-center"
+      *ngIf="isShowEmpty"
+    >
+      No Data Avaliable
+    </div>
+    <div class="table-wrap table-responsive">
+      <div style="max-width: 100%">
+        <table class="table m-0" mat-table [dataSource]="dataSource">
+          <!-- Position Column -->
+          <ng-container matColumnDef="NAME">
+            <th mat-header-cell *matHeaderCellDef>NAME</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.geoZoneName }}
+            </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="FROM">
+            <th mat-header-cell *matHeaderCellDef>FROM</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.startDate | date }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TO">
+            <th mat-header-cell *matHeaderCellDef>TO</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.endDate | date }}
+            </td>
+          </ng-container>
+          <!-- Weight Column -->
+
+          <ng-container matColumnDef="ACTIONS">
+            <th mat-header-cell *matHeaderCellDef class="text-center">
+              Actions
+            </th>
+            <td mat-cell *matCellDef="let row" class="white-space-nowrap">
+              <select
+                name="actions"
+                class="form-control actions"
+                placeholder="Actions"
+                [(ngModel)]="selectedActionId[row.index]"
+                (change)="
+                  changeAction(
+                    selectedActionId[row.index],
+                    row?.chemistScheduleId
+                  )
+                "
+              >
+                <option value="">Actions</option>
+                <option *ngFor="let action of actions" [value]="action.id">
+                  {{ action.name }}
+                </option>
+              </select>
+              <button
+                id="LaunchModal"
+                type="button"
+                class="btn btn-primary d-none"
+                data-toggle="modal"
+                data-target="#DuplicateModal"
+              >
+                Launch
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <!-- [pageSizeOptions]="[10, 25, 50, 100]" -->
+      </div>
+      <!-- </perfect-scrollbar> -->
+    </div>
+    <div class="table-meta mt-3">
+      <div class="row">
+        <mat-paginator
+          [hidden]="!data?.response.totalCount"
+          [length]="data?.response.totalCount"
+          [hidePageSize]="true"
+          [pageIndex]="data?.response.currentPageIndex - 1"
+          [pageSize]="data?.response.pageSize"
+          (page)="search($event)"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="DuplicateModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">DUPLICATE SCHEDULE</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="dates">
+            <mat-form-field appearance="fill">
+              <!-- <mat-label>Enter a date range</mat-label> -->
+              <mat-date-range-input [rangePicker]="picker2">
+                <input
+                  matStartDate
+                  placeholder="From / "
+                  [(ngModel)]="StartDate2"
+                />
+                <input matEndDate placeholder="To" [(ngModel)]="EndDate2" />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker2></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="closeDuplicate"
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" (click)="duplicate()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

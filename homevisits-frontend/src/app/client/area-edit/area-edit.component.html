@@ -1,0 +1,307 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form #editAreaForm="ngForm" (ngSubmit)="onSubmit(editAreaForm)">
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">edit Area</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              id="code"
+              disabled
+              name="code"
+              placeholder=" "
+              ngModel
+              required
+              #codeControl="ngModel"
+            />
+            <label class="float-label">Area ID</label>
+          </div>
+
+          <div
+            *ngIf="codeControl.invalid && editAreaForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="codeControl.errors.required">ID is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3" hidden>
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              id="userId"
+              name="geoZoneId"
+              placeholder=" "
+              ngModel
+            />
+            <label class="float-label">Chemist ID</label>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="name"
+              placeholder=" "
+              ngModel
+              #nameControl="ngModel"
+              required
+            />
+            <label class="float-label">Area Name</label>
+          </div>
+
+          <div
+            *ngIf="nameControl.invalid && editAreaForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="countryId"
+              name="countryId"
+              class="form-control"
+              placeholder="Country"
+              (ngModelChange)="onOptionsSelected($event)"
+              ngModel
+            >
+              <option [ngValue]="undefined" disabled>-- Select one --</option>
+              <option
+                *ngFor="let country of countries"
+                [value]="country.countryId"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="governateId"
+              name="governateId"
+              class="form-control"
+              placeholder=""
+              ngModel
+            >
+              <option [ngValue]="undefined" disabled>-- Select one --</option>
+              <option
+                *ngFor="let governate of governats"
+                [value]="governate.governateId"
+              >
+                {{ governate.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="mappingCode"
+              placeholder=" "
+              ngModel
+            />
+            <label class="float-label">Mapping Code</label>
+          </div>
+          <!-- #mappingCodeControl="ngModel" required -->
+          <!-- <div *ngIf="mappingCodeControl.invalid && editAreaForm.submitted"
+                  class="alert alert-danger">
+
+                <div *ngIf="mappingCodeControl.errors.required">
+                    Mapping Code is required.
+                  </div>
+  
+                </div> -->
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Active
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="isActive"
+              [(ngModel)]="isActive"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <h5 class="col-12 font-weight-bold px-0 py-3 border-0">
+          Area KML file
+        </h5>
+        <div class="col-lg-4 mb-2 mb-lg-0" [hidden]="!showFile">
+          <input
+            type="file"
+            id="file"
+            accept=".kml"
+            (change)="getFiles($event)"
+          />
+          <p *ngIf="fileExtensionError" class="warning" style="color: red">
+            {{ fileExtensionMessage }}
+          </p>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-0" [hidden]="showFile">
+          <!-- -->
+          <a (click)="download()"> Download KML File </a>
+          <span (click)="removeFile()" class="btn btn-danger"
+            ><i class="fa fa-times"></i
+          ></span>
+        </div>
+
+        <div class="col-12"></div>
+        <br />
+        <h4 class="col-12 font-weight-bold px-0 py-3 border-0">
+          Visit Time Zone
+        </h4>
+        <table style="border-collapse: separate; border-spacing: 0 7px">
+          <tr *ngFor="let time of timesArray; let i = index">
+            <td>
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="startTime{{ i }}"
+                  [(ngModel)]="time.startTime"
+                  #startTimeControl="ngModel"
+                  required
+                  (change)="validateVisitTimeNo(time.startTime, time.endTime, i)"
+                />
+              </div>
+              <div
+                *ngIf="startTimeControl.invalid && editAreaForm.submitted"
+                class="alert alert-danger"
+              >
+                <div *ngIf="startTimeControl.errors.required">
+                  Start time is required.
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="endTime{{ i }}"
+                  [(ngModel)]="time.endTime"
+                  #endTimeControl="ngModel"
+                  required
+                  (change)="validateVisitTimeNo(time.startTime, time.endTime, i)"
+                  
+                />
+              </div>
+              <div
+                *ngIf="endTimeControl.invalid && editAreaForm.submitted"
+                class="alert alert-danger"
+              >
+                <div *ngIf="endTimeControl.errors.required">
+                  End time is required.
+                </div>
+              </div>
+            </td>
+            <td [hidden]="time.branchDispatch">
+              <div class="form-group mb-0">
+                <input
+                  type="number"
+                  class="form-control"
+                  name="visitsNoQuota{{ i }}"
+                  placeholder="  "
+                  [(ngModel)]="time.visitsNoQuota"
+                  #visitsNoQoutaControl="ngModel"
+                  [required]="!time.branchDispatch"
+                  (keypress)="onlyNumberKey($event)"
+                  [pattern]="noVisitsPattern"
+                  [min]="0"
+                />
+                <label class="float-label">No of Visit</label>
+              </div>
+              <div
+              *ngIf="time.visitsNoQuota >= time.maxNumVisitNo"
+              class="alert alert-danger"
+            >
+              <div>
+                Value must be less than or Equel
+                 {{ time.maxNumVisitNo.toFixed() }}
+               
+              </div>
+            </div>
+            <div
+            *ngIf="( startTimeControl.touched && !time.maxNumVisitNo )"
+            class="alert alert-danger"
+          >
+            <div>
+             Please put Valid Start Time and End Time
+            </div>
+          </div>
+              <div
+                *ngIf="visitsNoQoutaControl.invalid && editAreaForm.submitted"
+                class="alert alert-danger"
+              >
+                <div *ngIf="visitsNoQoutaControl.errors.required">
+                  No of visit is required.
+                </div>
+                <div *ngIf="visitsNoQoutaControl.errors?.pattern">
+                  Value must be greater than zero.
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="mb-2 mb-lg-3 d-flex align-items-center">
+                Branch Dispattch
+                <label class="switch m-0 ml-3">
+                  <input
+                    type="checkbox"
+                    checked
+                    name="branchDispatch{{ i }}"
+                    [(ngModel)]="time.branchDispatch"
+                  />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </td>
+            <td></td>
+            <td>
+              <span (click)="removeItem(i)" class="btn btn-danger"
+                ><i class="fa fa-times"></i
+              ></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span type="button" (click)="addItem()" class="btn btn-success"
+                ><i class="fa fa-plus"></i> Add Time Zone
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backToList()"
+      >
+        Cancel
+      </button>
+      <!-- <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                type="submit" >Save</button> -->
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Save'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

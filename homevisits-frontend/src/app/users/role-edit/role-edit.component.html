@@ -1,0 +1,96 @@
+<div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white ">
+    <form #roleForm="ngForm" (ngSubmit)="roleForm.form.valid && onSubmit(roleForm)">
+        <div class="bordered-shadow mb-4 ">
+            <p class="font-weight-bold py-4 ">
+                Edit Role
+            </p>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" name="name" placeholder=" " ngModel required
+                            #nameControl="ngModel">
+                        <label class="float-label ">Role Name</label>
+                    </div>
+
+                    <div *ngIf="nameControl.invalid &&  roleForm.submitted" class="alert alert-danger">
+
+                        <div *ngIf="nameControl.errors.required">
+                            Name is required.
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-2 mb-lg-3" hidden>
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" id="roleId" name="roleId" placeholder=" " ngModel>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" name="description" placeholder=" " 
+                        ngModel required
+                            #descriptionControl="ngModel">
+                        <label class="float-label ">Description</label>
+                    </div>
+
+                    <div *ngIf="descriptionControl.invalid &&  roleForm.submitted" class="alert alert-danger">
+
+                        <div *ngIf="descriptionControl.errors.required">
+                            Description is required.
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="select icon-down-arrow w-100">
+                        <select id="selectedPageId" name="DefaultPage" placeholder="" class="form-control"
+                            name="defaultPageId" required ngModel #defaultPageControl="ngModel">
+                            <option selected [value]="0">-- Select one --</option>
+                            <option *ngFor="let page of systemPages;" [value]="page.id">{{page.name}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="defaultPageControl.invalid && roleForm.submitted" class="alert alert-danger">
+
+                        <div *ngIf="defaultPageControl.errors.required">
+                            Default Page is required.
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="select  icon-down-arrow w-100">
+                        <select class="select2-multiple" aria-label="Select menu"
+                         multiple="multiple" name="geoZones"
+                            ngModel>
+                            <option [ngValue]="undefined">-- Select one --</option>
+                            <option *ngFor="let area of areas;" [value]="area.geoZoneId">{{area.name}}</option>
+                        </select>
+                        <label for="" class="float-label ">Area</label>
+                    </div>
+
+                </div>
+                <div class="col-lg-12 mb-2 mb-lg-3">
+
+                    <!-- <ejs-maskedtextbox #maskObj id="search" placeholder="Search" (change)="searchNodes()"></ejs-maskedtextbox> -->
+                    <div id='treeparent' *ngIf="vm.field">
+                        <ejs-treeview #treeview id='treeelement' [fields]='vm.field' [showCheckBox]='showCheckBox'
+                            (nodeChecked)='nodeChecked($event)'></ejs-treeview>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 justify-content-end">
+
+            <button class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                type="button" (click)="backToList()">Cancel</button>
+            <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                type="submit">Save</button>
+        </div>
+    </form>
+
+</div>

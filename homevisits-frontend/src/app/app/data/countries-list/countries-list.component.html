@@ -1,0 +1,353 @@
+<div
+  class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid"
+>
+  <!-- change id's and data-targets to what you need  -->
+  <div>
+    <a
+      href="javascript:;"
+      class="text-decoration-none pointer d-flex justify-content-between align-items-center"
+      data-toggle="collapse"
+      data-target="#collapseOne"
+      aria-expanded="true"
+      aria-controls="collapseOne"
+    >
+      <h6 class="font-weight-bold m-0 text-uppercase">SEARCH COUNTRIES</h6>
+      <p
+        class="m-0"
+        (click)="showForm ? (showForm = false) : (showForm = true)"
+      >
+        <span *ngIf="data?.response.totalCount">
+          {{ data?.response.totalCount }} results found</span
+        >
+        <span *ngIf="!data?.response.totalCount"> No results found</span>
+        <!-- <i *ngIf="!showForm" class="icon-down-arrow"></i>
+                <i *ngIf="showForm" class="icon-down-arrow rotated"></i> -->
+        <i class="icon-down-arrow" [ngClass]="{ rotated: showForm }"></i>
+      </p>
+    </a>
+
+    <div *ngIf="showForm">
+      <form #roleForm="ngForm">
+        <div class="mb-4">
+          <div class="row m-0 py-xl-4 p-2 px-xl-5">
+            <div class="col-lg-4 mb-2 mb-lg-3">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="  "
+                  name="code"
+                  [(ngModel)]="code"
+                />
+                <label class="float-label">Country ID</label>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-2 mb-lg-3">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="  "
+                  name="name"
+                  [(ngModel)]="name"
+                />
+                <label class="float-label">Country Name</label>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-2 mb-lg-3">
+              <div class="select icon-down-arrow w-100">
+                <select
+                  id="StatusType"
+                  name="area"
+                  class="form-control"
+                  placeholder=""
+                  [(ngModel)]="roleStatusType"
+                >
+                  <option [ngValue]="null">-- Choose Status --</option>
+                  <option
+                    *ngFor="let status of roleSatuskeys(roleStatus)"
+                    [ngValue]="roleStatus[status]"
+                  >
+                    {{ status }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-0 justify-content-end">
+          <button
+            class="btn form-control btn-primary btn-bordered border-0 col-lg-2 col-6 font-weight-bold mr-lg-3"
+            type="button"
+            (click)="clear(roleForm)"
+          >
+            <i class="icon-garbage mr-1"></i>CLEAR
+          </button>
+          <button
+            class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+            type="submit"
+            (click)="search()"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- <h6 class="font-weight-bold">SEARCH RESULTS</h6>
+<form action="" class="row">
+    <div class="col-lg-2 col-md-6 mb-2 mb-lg-3">
+        <div class="form-group mb-0 input-with-cross">
+            <input type="text" class="pt-3 form-control form-control-sm bg-white" value="0122 333 3232"
+                placeholder="  ">
+            <label class="float-label ">Visit date from</label>
+            <a href="#" class="icon-cross position-absolute"></a>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-6 mb-2 mb-lg-3">
+        <div class="form-group mb-0 input-with-cross">
+            <input type="text" class="pt-3 form-control form-control-sm bg-white" value="0122 333 3232"
+                placeholder="  ">
+            <label class="float-label ">Visit date to</label>
+            <a href="#" class="icon-cross position-absolute"></a>
+        </div>
+    </div>
+</form> -->
+<div
+  class="inner-content have-table position-relative p-4 mb-5 bg-white container-fluid"
+>
+  <div class="table-meta mb-3">
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-md-5">
+        <button
+          (click)="gotoEdit()" *appIsGranted="[countryPage,createAction]"
+          class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4"
+        >
+          ADD NEW COUNTRY
+        </button>
+      </div>
+      <!-- <div
+                class="col-xl-8 col-lg-4 col-md-6 mt-3 mt-md-0 d-sm-flex align-items-center  justify-content-end">
+                <p class="m-0 mr-3 font-weight-bold">1 Selected</p>
+                <div class="dropdown ">
+                    <a class="form-control-sm d-inline-block  dropdown-toggle" href="#" role="button"
+                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Action
+                        <i class="icon-down-arrow px-3"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalOne">Request second visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalTwo">Re-assign visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalThree">Cancel selected visits</a>
+                    </div>
+
+                </div>
+            </div> -->
+      <!-- <div
+                class="col-lg-4 col-md-1 mt-3 mt-md-0 d-flex align-items-center justify-content-end  col-xl-1  m-0 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <defs>
+                        <style>
+                            .a {
+                                fill: none;
+                            }
+                        </style>
+                    </defs>
+                    <g transform="translate(-9472 107)">
+                        <rect class="a" width="32" height="32" transform="translate(9472 -107)" />
+                        <g transform="translate(9474.667 -104.333)">
+                            <path
+                                d="M22.76,6.719h-.729V3.906A3.911,3.911,0,0,0,18.125,0H8.542A3.911,3.911,0,0,0,4.635,3.906V6.719H3.906A3.911,3.911,0,0,0,0,10.625v6.25a3.911,3.911,0,0,0,3.906,3.906h.729v3.542a2.346,2.346,0,0,0,2.344,2.344H19.688a2.346,2.346,0,0,0,2.344-2.344V20.781h.729a3.911,3.911,0,0,0,3.906-3.906v-6.25A3.911,3.911,0,0,0,22.76,6.719ZM6.2,3.906A2.346,2.346,0,0,1,8.542,1.563h9.583a2.346,2.346,0,0,1,2.344,2.344V6.719H6.2ZM20.469,24.323a.782.782,0,0,1-.781.781H6.979a.782.782,0,0,1-.781-.781V16.615H20.469ZM25.1,16.875a2.346,2.346,0,0,1-2.344,2.344h-.729v-2.6H22.5a.781.781,0,0,0,0-1.563H4.167a.781.781,0,1,0,0,1.563h.469v2.6H3.906a2.346,2.346,0,0,1-2.344-2.344v-6.25A2.346,2.346,0,0,1,3.906,8.281H22.76A2.346,2.346,0,0,1,25.1,10.625Z" />
+                            <path
+                                d="M205.948,353h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -334.615)" />
+                            <path
+                                d="M205.948,417h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -395.281)" />
+                            <path d="M68.281,193h-2.5a.781.781,0,0,0,0,1.563h2.5a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-61.615 -182.948)" />
+                        </g>
+                    </g>
+                </svg>
+
+            </div> -->
+    </div>
+  </div>
+  <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+    <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+    <div class="spinner-border text-secondary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+    No Data Avaliable
+  </div>
+  <div class="table-wrap table-responsive">
+    <!-- <perfect-scrollbar> -->
+    <!-- *ngIf="data?.items.length>0"  -->
+
+    <div style="max-width: 100%" *ngIf="data?.response.countries?.length > 0">
+      <table class="table m-0" mat-table [dataSource]="dataSource">
+        <!-- <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                      </ng-container> -->
+        <!-- Position Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            <i *ngIf="element.isActive" class="icon-check"></i>
+            <i *ngIf="!element.isActive" class="icon-error"></i>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="countryId">
+          <th mat-header-cell *matHeaderCellDef>COUNTRY ID</th>
+          <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>COUNTRY NAME</th>
+          <td mat-cell *matCellDef="let element">{{ element.countryName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="mobileLength">
+          <th mat-header-cell *matHeaderCellDef>MOBILE NUMBER LENGTH</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.mobileNumberLength }}
+          </td>
+        </ng-container>
+        <!-- Weight Column -->
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
+          <td mat-cell *matCellDef="let row" class="white-space-nowrap">
+            <a *appIsGranted="[countryPage,updateAction]"
+              href="javascript:;"
+              class="icon-edit mr-2"
+              (click)="navigate(row.countryId)"
+            >
+              <!-- <span  > -->
+              <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> -->
+            </a>
+            <!-- <a mat-button color="primary" matTooltip="تعديل"
+                            [routerLink]="['/chemists-edit/',row.chemistId]">
+                            <mat-icon>edit</mat-icon>
+                          </a> -->
+            &nbsp;
+            <a *appIsGranted="[countryPage,DeleteAction]"
+              href="javascript:;"
+              class="icon-garbage"
+              (click)="openDeleteDialog(row.countryId)"
+            >
+              <!-- <mat-icon>Delete</mat-icon> -->
+              <!-- <i class="fa fa-trash-o" aria-hidden="true"></i> -->
+            </a>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <!-- [pageSizeOptions]="[10, 25, 50, 100]" -->
+    </div>
+    <!-- </perfect-scrollbar> -->
+  </div>
+  <div class="table-meta mt-3">
+    <div class="row">
+      <mat-paginator
+        [hidden]="!data?.response.totalCount"
+        [length]="data?.response.totalCount"
+        [hidePageSize]="true"
+        [pageIndex]="data?.response.currentPageIndex - 1"
+        [pageSize]="data?.response.pageSize"
+        (page)="search($event)"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+      <!--  <div class="col-xl-3 col-lg-4 col-md-6">
+                <button
+                    class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4 ">
+                    Create new visit
+                </button>
+            </div>
+            <div
+                class="col-xl-5 col-lg-4 col-md-6 justify-content-center mt-3 mt-md-0 d-flex align-items-center justify-content-md-end">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination m-0">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true" class="icon-back-1"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">30</a></li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true" class="icon-back-1 reverse"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div
+                class="col-xl-3 col-lg-4 col-md-6 mt-3 mt-md-0 d-sm-flex align-items-center  justify-content-end">
+                <p class="m-0 mr-3 font-weight-bold">1 Selected</p>
+                <div class="dropdown ">
+                    <a class="form-control-sm d-inline-block  dropdown-toggle" href="#" role="button"
+                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Action
+                        <i class="icon-down-arrow px-3"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalOne">Request second visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalTwo">Re-assign visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalThree">Cancel selected visits</a>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-lg-4 col-md-6 mt-3 mt-md-0 d-flex align-items-center justify-content-end  col-xl-1  m-0 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <defs>
+                        <style>
+                            .a {
+                                fill: none;
+                            }
+                        </style>
+                    </defs>
+                    <g transform="translate(-9472 107)">
+                        <rect class="a" width="32" height="32" transform="translate(9472 -107)" />
+                        <g transform="translate(9474.667 -104.333)">
+                            <path
+                                d="M22.76,6.719h-.729V3.906A3.911,3.911,0,0,0,18.125,0H8.542A3.911,3.911,0,0,0,4.635,3.906V6.719H3.906A3.911,3.911,0,0,0,0,10.625v6.25a3.911,3.911,0,0,0,3.906,3.906h.729v3.542a2.346,2.346,0,0,0,2.344,2.344H19.688a2.346,2.346,0,0,0,2.344-2.344V20.781h.729a3.911,3.911,0,0,0,3.906-3.906v-6.25A3.911,3.911,0,0,0,22.76,6.719ZM6.2,3.906A2.346,2.346,0,0,1,8.542,1.563h9.583a2.346,2.346,0,0,1,2.344,2.344V6.719H6.2ZM20.469,24.323a.782.782,0,0,1-.781.781H6.979a.782.782,0,0,1-.781-.781V16.615H20.469ZM25.1,16.875a2.346,2.346,0,0,1-2.344,2.344h-.729v-2.6H22.5a.781.781,0,0,0,0-1.563H4.167a.781.781,0,1,0,0,1.563h.469v2.6H3.906a2.346,2.346,0,0,1-2.344-2.344v-6.25A2.346,2.346,0,0,1,3.906,8.281H22.76A2.346,2.346,0,0,1,25.1,10.625Z" />
+                            <path
+                                d="M205.948,353h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -334.615)" />
+                            <path
+                                d="M205.948,417h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -395.281)" />
+                            <path d="M68.281,193h-2.5a.781.781,0,0,0,0,1.563h2.5a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-61.615 -182.948)" />
+                        </g>
+                    </g>
+                </svg>
+
+            </div> -->
+    </div>
+  </div>
+</div>

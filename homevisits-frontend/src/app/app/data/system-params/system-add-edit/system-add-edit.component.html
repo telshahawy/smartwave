@@ -1,0 +1,254 @@
+<div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white ">
+    <form [formGroup]="systemForm" (ngSubmit)=" onSubmit()">
+        <div class="bordered-shadow mb-4 ">
+            <p class="font-weight-bold py-4 ">
+           System Parameters
+            </p>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="estimatedVisitDurationInMin">
+                        <label class="float-label ">Estmited visit duration</label>
+                    <label class="text-muted"> Value by minutes</label>
+
+                    </div>
+                    <div *ngIf="f.estimatedVisitDurationInMin?.errors  && (f.estimatedVisitDurationInMin.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.estimatedVisitDurationInMin.errors.required">
+                            Estmited visit duration is required.
+                        </div>
+                        <div *ngIf="f.estimatedVisitDurationInMin.invalid  && !f.estimatedVisitDurationInMin.errors.required ">
+                            Estmited visit duration is Invalid you should enter number from 0 to 999.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="nextReserveHomevisitInDay">
+                        <label class="float-label ">Enable reverse home visit for the next </label>
+                    <label class="text-muted"> Value by days</label>
+                    </div>
+                    <div *ngIf="f.nextReserveHomevisitInDay?.errors  && (f.nextReserveHomevisitInDay.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.nextReserveHomevisitInDay.errors.required">
+                            Enable reverse home visit for the next is required.
+                        </div>
+                        <div *ngIf="f.nextReserveHomevisitInDay.invalid && !f.nextReserveHomevisitInDay.errors.required ">
+                            Enable reverse home visit for the next is Invalid you should enter number from 0 to 99.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" 
+                        placeholder=" "
+                         formControlName="routingSlotDurationInMin">
+                        <label class="float-label ">Routing Duration Slots</label>
+                    <label class="text-muted"> Value by minutes</label>
+
+                    </div>
+                    <div *ngIf="f.routingSlotDurationInMin?.errors  && (f.routingSlotDurationInMin.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.routingSlotDurationInMin.errors.required">
+                            Routing Duration Slots is required.
+                        </div>
+                        <div *ngIf="f.routingSlotDurationInMin.invalid && !f.routingSlotDurationInMin.errors.required ">
+                            Routing Duration Slots is Invalid you should enter number from 0 to 999.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-8">
+                    <div class="form-group p-1 ">
+                        <label id="example-radio-group-label" class="d-block font-weight-bold">Visit Approvel By</label>
+                        <label *ngFor="let action of visitApprovel; let i=index;" class="control radio mr-5 mb-2 mb-lg-0">
+                            <input  type="radio" [value]="action.id"  formControlName="visitApprovalBy">
+                            <span class="control-indicator"></span>
+                            {{action.name}}
+                        </label>
+                    </div>
+                    <div *ngIf="f.visitApprovalBy?.errors  && (f.visitApprovalBy.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.visitApprovalBy.errors.required">
+                            Visit Approvel By is required.
+                        </div>
+                    
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-8 ">
+                    <div class="form-group p-1 ">
+                        <label id="example-radio-group-label" class="d-block font-weight-bold">Visit Cancel By</label>
+                        <label *ngFor="let action of visitApprovel; let i=index;" class="control radio mr-5 mb-2 mb-lg-0">
+                            <input  type="radio" [value]="action.id"  formControlName="visitCancelBy">
+                            <span class="control-indicator"></span>
+                            {{action.name}}
+                        </label>
+
+                    </div>
+                    <div *ngIf="f.visitCancelBy?.errors  && (f.visitCancelBy.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.visitCancelBy.errors.required">
+                            Visit Cancel By is required.
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-4 ">
+                    <div class="select icon-down-arrow w-100">
+                        <select  class="form-control" 
+                            formControlName="defaultCountryId">
+                            <option [value]="null">-- Default Country --</option>
+                            <option *ngFor="let country of countries;" [value]="country.countryId">{{country.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 ">
+                    <div class="select icon-down-arrow w-100">
+                        <select  class="form-control" 
+                        formControlName="defaultGovernorateId">
+                        <option [value]="null" >-- Default governorates --</option>
+                        <option *ngFor="let gover of governorates;"
+                         [value]="gover.governateId">{{gover.governateName}}
+                        </option>
+                    </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="checkbox switch  switch-checkbox ">
+                            <input name="checkbox" type="checkbox" checked 
+                            formControlName="isSendPatientTimeConfirmation">
+                            <span class="control-indicator"></span>
+                            <span> Send patient time confirmation </span>
+
+                        </label>
+
+                    </div>
+                    <div *ngIf="f.isSendPatientTimeConfirmation?.errors  && (f.isSendPatientTimeConfirmation.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.isSendPatientTimeConfirmation.errors.required">
+                            Send patient time confirmation is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="checkbox switch  switch-checkbox ">
+                            <input name="checkbox" type="checkbox" checked formControlName="isOptimizezonebefore">
+                            <span class="control-indicator"></span>
+                            <span> Optimize time before</span>
+
+                        </label>
+
+                    </div>
+                    <div *ngIf="f.isOptimizezonebefore?.errors  && (f.isOptimizezonebefore.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.isOptimizezonebefore.errors.required">
+                            Optimize time before
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 p-0">
+                    <div class="form-group " *ngIf="f?.isOptimizezonebefore?.value == true">
+                        <input type="number" class="form-control mb-2 w-50" placeholder="0" 
+                        formControlName="optimizezonebeforeInMin">
+                    <label class="text-muted"> Mins before zone start</label>
+                    </div>
+                    <div class="form-group " *ngIf="f?.isOptimizezonebefore?.value == false">
+                        <input type="number" class="form-control mb-2 w-50" placeholder="0" 
+                        formControlName="optimizezonebeforeInMin" disabled>
+                    <label class="text-muted"> Mins before zone start</label>
+                    </div>
+                    <div *ngIf="f.optimizezonebeforeInMin?.errors  && (f.optimizezonebeforeInMin.touched ||submitted)" class="alert alert-danger">
+                        <div *ngIf="f.optimizezonebeforeInMin.errors.required">
+                            Mins before zone start is required.
+                        </div>
+                        <div *ngIf="f.optimizezonebeforeInMin.invalid  && !f.optimizezonebeforeInMin.errors.required ">
+                            Mins before zone start is Invalid.
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+                        <input type="text" class="form-control mb-2" placeholder=" " 
+                        formControlName="callCenterNumber">
+                        <label class="float-label ">Call center number</label>
+
+                    </div>
+
+                    <div *ngIf="f.callCenterNumber?.errors  && (f.callCenterNumber?.touched || submitted)" class="alert alert-danger">
+                     
+                    
+                        <div *ngIf="f.callCenterNumber?.errors?.pattern">
+                            Mobile number not valid.
+                        </div>
+                        <div *ngIf="f.callCenterNumber?.errors?.minlength">
+                            Mobile Minimum Length is 5
+                        </div>
+                        <div *ngIf="f.callCenterNumber?.errors?.maxlength">
+                            Mobile Maximum Length is 20
+                        </div>
+                    </div>
+               
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+                        <input type="text" class="form-control mb-2" placeholder=" " formControlName="whatsappBusinessLink">
+                        <label class="float-label ">Whatsapp business link</label>
+
+                    </div>
+                  
+                </div>
+               
+                <div class="col-lg-4 " style="position: relative;">
+                      <input type="text" hidden>
+                    <label class="file w-100">
+                        <input type="file" class="img-input" accept="application/pdf" id="file"
+                        aria-label="File browser example"
+                        (change)="getFiles($event)">
+                        <label class="float-label ">Precautions file (PDF)</label>
+                        <span *ngIf="!isFileLoading" class="file-custom"></span>
+                        <mat-spinner *ngIf="isFileLoading"
+                        style="position: absolute;
+                        right: 32%;
+                        top: 25%;
+                        transform: translate(-50%, -50%);"
+                        class="d-inline-block"
+                        diameter="40">
+                    </mat-spinner>
+                    </label>  
+                    
+                    <div *ngIf="file?.name" class="mt-3 text-break">
+                       <a [href]="file?.url"></a> {{file?.name }}
+                        <i *ngIf="file" class="fa fa-times-circle" style="cursor: pointer;"
+                    (click)="removeFile()"
+                   ></i>
+                </div>
+                    
+                </div>
+            </div>
+          
+        </div>
+        <div class="row m-0 justify-content-end">
+
+        
+                <div  style="display: contents;" form-submit-btn [btnLable]="'Save'"
+                [isLoading]="submitted "
+                >
+              </div>   
+        </div>
+    </form>
+
+</div>

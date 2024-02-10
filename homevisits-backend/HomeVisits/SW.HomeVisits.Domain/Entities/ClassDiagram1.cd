@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SW.HomeVisits.Domain.Entities.AgeSegment" Collapsed="true">
+    <Position X="5.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABABMAAgACAAAQAgAAAQAAAQAAAAAAAAAAAAIAgA=</HashCode>
+      <FileName>Entities\AgeSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Chemist">
+    <Position X="17" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQCQAFCAAAAACAoAAAAAAAAAAAAAAAAQAAAAgAAAQ=</HashCode>
+      <FileName>Entities\Chemist.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Client" />
+      <Property Name="GeoZone" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.ChemistsTimeZone">
+    <Position X="20.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAIAAIAAAAAQAAAAAACAA=</HashCode>
+      <FileName>Entities\ChemistsTimeZones.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TimeZone" />
+      <Property Name="Chemist" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Client">
+    <Position X="14.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEQAkAAAAAAAAgAAAAAAAAAIAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Country">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAIAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Country.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.GeoZone">
+    <Position X="24.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAQAAAAAAAAAAACAAAAAQEA=</HashCode>
+      <FileName>Entities\GeoZone.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Governate" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Governate">
+    <Position X="24.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAEAAAAAAAAAAAAIQAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Entities\Governate.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Country" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.PatientAddress">
+    <Position X="20" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAUgBAAgAAAAIEAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\PatientAddress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GeoZone" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Attachment">
+    <Position X="15.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAAAgAAAABAAAE=</HashCode>
+      <FileName>Entities\Attachment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Patient">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBACAAACQAAAACAAAAAAAQAAACAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Entities\Patient.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.TimeZone">
+    <Position X="23.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAABAEgAAAAAAAAAAAAAABAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\TimeZone.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GeoZone" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.VisitActionType">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\VisitActionType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.Visit">
+    <Position X="11.5" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AACAAQAgQQABAAEEAAAAAEAAIAAACAAAEwAEAAAACAE=</HashCode>
+      <FileName>Entities\Visit.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="VisitType" />
+      <Property Name="RelativeAgeSegment" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="VisitStatuses" />
+      <Property Name="Attachments" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.VisitStatusType">
+    <Position X="5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Entities\VisitStatusType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.VisitType">
+    <Position X="11.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAQAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\VisitType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SW.HomeVisits.Domain.Entities.VisitStatus">
+    <Position X="8.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAAQQEAQAAQAAAAKAAAAAAAAAAAAAQAAAACAgAA=</HashCode>
+      <FileName>Entities\VisitStatus.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="VisitStatusType" />
+      <Property Name="VisitActionType" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

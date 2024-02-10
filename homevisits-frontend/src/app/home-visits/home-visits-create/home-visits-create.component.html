@@ -1,0 +1,3 @@
+<app-search-patients (notifyy)="getSentData($event)" *ngIf="showSearchPatient"></app-search-patients>
+<app-patient-data (childPatientData)="getPatientData($event)" (backToSearchPatient)="backToSearchPatient($event)" *ngIf="!showSearchPatient && !nextToVisitData" [patientData]="sendPatientId()"></app-patient-data>
+<app-visit-data *ngIf="nextToVisitData" [recievedPatientData]="sendToVisit()" ></app-visit-data>

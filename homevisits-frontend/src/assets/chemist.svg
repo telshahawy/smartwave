@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="chemist" transform="translate(-4308 1011)">
+    <rect id="Rectangle_23" data-name="Rectangle 23" width="26" height="26" transform="translate(4308 -1011)" fill="none"/>
+    <g id="chemist-2" data-name="chemist" transform="translate(4312.333 -1008.833)">
+      <path id="Path_18" data-name="Path 18" d="M63.3,17.8,57.368,5.924V1.27h.045a.635.635,0,1,0,0-1.27H51.974a.635.635,0,1,0,0,1.27h.045V5.924L46.083,17.8a2.674,2.674,0,0,0,2.392,3.871H60.912A2.674,2.674,0,0,0,63.3,17.8Zm-1.2,1.935a1.4,1.4,0,0,1-1.2.667H48.475a1.4,1.4,0,0,1-1.256-2.034l6-12.006a.634.634,0,0,0,.067-.284V1.27H56.1v4.8a.635.635,0,0,0,.067.284l6,12.006A1.4,1.4,0,0,1,62.108,19.731Z" transform="translate(-45.799 0)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

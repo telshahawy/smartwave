@@ -1,0 +1,46 @@
+
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-inputs/styles/material.css';
+@import "../node_modules/@syncfusion/ej2-angular-navigations/styles/material.css";
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
+/*  */
+
+.cdk-overlay-container, .cdk-global-overlay-wrapper{
+    z-index: 3244444444 !important;
+}
+.inner-content{
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: unset;
+}
+.logo img{
+    width: 11rem;
+}
+.header-section{
+    text-align: center;
+}
+.e-control, .e-css {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    
+}
+.mat-dialog-container {
+    border-radius: 20px !important;
+  }
+.dates .mat-icon-button{
+    position: absolute;
+    top: 0;
+}
+.dates .mat-date-range-input{
+    padding-left: 15%;
+    padding-top: 8px;
+}
+.custom .e-list-item.e-level-1 .e-text-content.e-icon-wrapper
+  .e-checkbox-wrapper {
+        display: none
+    }

@@ -1,0 +1,195 @@
+
+/**** sidebar ****/
+.sidebar {
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    width: 75px;
+    background: linear-gradient(#627fbb 0%, #224ba0 100%);
+    box-shadow: 15px 0px 30px rgba(0, 0, 0, 0.05);
+}
+
+.alfa .sidebar {
+    background: #0c306f;
+}
+.alfa .sidebar>img {
+    max-width: 100%;
+}
+
+.sidebar .icon-down-arrow {
+    right: 10px;
+    font-size: 20px;
+    opacity: 0;
+    transition-duration: .6s;
+}
+
+.sidebar .active:not(.collapsed) .icon-down-arrow {
+    transform: rotate(180deg);
+}
+
+.sidebar:hover .icon-down-arrow {
+    opacity: 1;
+}
+
+.sidebar .collapse>a {
+    padding-left: 75px;
+    color: #fff !important;
+
+}
+
+ .sidebar a {
+    height: 70px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 2;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition-duration: .2s;
+    position: relative;
+}
+
+ .sidebar>img {
+    max-width: 100% !important;
+}
+
+.sidebar .separator {
+    width: 280px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.sidebar:hover {
+    width: 320px;
+}
+
+.sidebar~.copyrights,
+.sidebar~.page-content-wrapper {
+    transition-duration: .6s;
+
+}
+
+@media (min-width:769px) {
+    .copyrights {
+        width: 100%;
+    }
+
+    .sidebar:hover~.copyrights,
+    .sidebar:hover~.page-content-wrapper {
+        padding-left: 245px;
+    }
+}
+
+.sidebar a.active {
+    font-weight: bold;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+
+
+    background: rgba(34, 75, 160, .3);
+
+}
+
+.sidebar a:hover:after,
+.sidebar a.active:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 5px;
+    background-color: #bf1e2d;
+    right: 0;
+    border-radius: 5px;
+}
+
+.sidebar a .svg {
+    margin-top: -5px;
+    width: 75px;
+    padding: 0 25px;
+}
+
+/**** navbar ****/
+nav .back-btn {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+nav .logout {
+    padding: 0 0 0 27px;
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: 25px;
+}
+nav .logout>a {
+    font-size: 26px;
+}
+nav .logout>a:after{
+    content: none;
+}
+.logout .dropdown-menu {
+    left: auto!important;
+    right: -60px;
+    width: auto;
+}
+nav .user-dropdown .dropdown a img {
+    width: 50px;
+    height: 50px;
+    background: #224ba0;
+    border: 2px solid #fff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    object-fit: cover;
+    margin-left: 20px;
+}
+
+nav .user-dropdown .dropdown>a {
+    font-size: 16px;
+    line-height: 20px;
+
+}
+
+nav .user-dropdown .dropdown-item a {
+    font-size: 26px;
+}
+
+nav .user-dropdown .dropdown-toggle::after {
+    content: none;
+}
+
+nav .user-dropdown .user-dropdown-disabled input:not(:placeholder-shown)+.float-label {
+    left: 0;
+    top: 0;
+
+}
+
+nav .user-dropdown .user-dropdown-disabled input {
+    font-size: 16px;
+    height: 40px;
+    padding: 0;
+    padding-top: 17px;
+    border-radius: 0;
+}
+
+nav .user-dropdown .user-dropdown-disabled input[type=password] {
+    font-size: 30px;
+    font-weight: 700;
+
+}
+
+nav .user-dropdown .change-username {
+    font-size: 14px;
+    line-height: 2;
+}
+
+nav .user-dropdown .btns {
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+nav .user-dropdown .btns .btn {
+    height: 45px;
+}

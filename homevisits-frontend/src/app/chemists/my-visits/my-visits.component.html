@@ -1,0 +1,165 @@
+<!-- <div class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid ">
+   
+    <div >
+
+        <a href="javascript:;" class="text-decoration-none  pointer d-flex justify-content-between align-items-center"
+            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseOne">
+            <h6 class="font-weight-bold m-0 text-uppercase">My VISITS </h6>
+            <p class="m-0" (click)="showForm?showForm=false:showForm=true">
+                <span *ngIf="data?.response.totalCount"> {{data?.response.totalCount}} results found</span>
+                <span *ngIf="!data?.response.totalCount"> No results found</span>
+               
+                <i class="icon-down-arrow" [ngClass]="{'rotated':showForm}"></i>
+            </p>
+        </a>
+
+        <div *ngIf="showForm">
+            <form #chemistForm ="ngForm">
+                <div class="mb-4 ">
+
+                    <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                     <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group mb-0">
+                                <input type="date" class="form-control" name="visitDateFrom" [(ngModel)]="visitDateFrom" placeholder="  ">
+                                <label class="float-label ">Visit Date From</label>
+                            </div>
+                        </div>
+                           <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group mb-0">
+                                <input type="date" class="form-control" name="visitDateTo" [(ngModel)]="visitDateTo" placeholder="  ">
+                                <label class="float-label ">Visit Date To</label>
+                            </div>
+                        </div>
+                      
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="select icon-down-arrow w-100">
+                                <select id="selectedAreaId" name="area" class="form-control" placeholder=""
+                                [(ngModel)]="selectedAreaId">
+                                <option [value]="null">--  Choose Area --</option>
+                                <option *ngFor="let area of areas;" [value]="area.geoZoneId">{{area.name}}</option>
+                              </select>
+                              
+                            </div>
+                        </div>
+                      
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="select icon-down-arrow w-100">
+                                <select  id="visitStatusTypeId" name="visitStatusTypeId" class="form-control" placeholder=""
+                                [(ngModel)]="visitStatusTypeId">
+                                <option [ngValue]="null">-- Choose Visit Status --</option>
+                                <option *ngFor="let key of visitStatusType|keys" [value]="key">{{visitStatusType[key]}}</option> 
+                                  </select>
+                            </div>
+                        </div>
+                        
+                        </div>
+                      
+                      
+                        </div>
+
+                    </div>
+               
+                <div class="row m-0 justify-content-end">
+                    <button
+                        class="btn form-control btn-primary btn-bordered border-0  col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                        type="button" (click)="clear(chemistForm)"><i class="icon-garbage mr-1"></i>CLEAR</button>
+                    <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                        type="submit" (click)="search()">Search</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="inner-content have-table position-relative  p-4 mb-5 bg-white container-fluid ">
+    <div class="table-meta mb-3">
+        <div class="row">
+           
+            
+        </div>
+
+    </div>
+    <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+
+        <div class="spinner-border text-secondary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+       No Data Avaliable
+      </div>
+    <div class="table-wrap table-responsive">
+
+      
+            
+            <div style="max-width: 100%" *ngIf="data?.response.visits.length>0">
+    
+                <table class="table m-0" mat-table [dataSource]="dataSource" >
+                   
+                    <ng-container matColumnDef="chemistId">
+                        <th mat-header-cell *matHeaderCellDef> Visit ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.visitNo}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="visitdate">
+                        <th mat-header-cell *matHeaderCellDef> Visit Date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.visitDate | date :'dd/MM/yyyy h:mm a'}} </td>
+                      </ng-container>
+                     
+                    <ng-container matColumnDef="patient name">
+                        <th mat-header-cell *matHeaderCellDef> Patient Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+                      </ng-container>
+                     
+                    <ng-container matColumnDef="gender">
+                        <th mat-header-cell *matHeaderCellDef> Gender </th>
+                        <td mat-cell *matCellDef="let element"> {{element.genderName}} </td>
+                      </ng-container>
+                    
+                  
+                      <ng-container matColumnDef="age">
+                        <th mat-header-cell *matHeaderCellDef> Age </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dob}} </td>
+                      </ng-container>
+
+                  
+                    <ng-container matColumnDef="mobile NO">
+                      <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+                      <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                    </ng-container>
+
+                      <ng-container matColumnDef="area">
+                        <th mat-header-cell *matHeaderCellDef> Area </th>
+                        <td mat-cell *matCellDef="let element"> {{element.geoZoneName}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="chemist">
+                        <th mat-header-cell *matHeaderCellDef> Chemist Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.chemistName}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status</th>
+                        <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
+                      </ng-container>
+                     
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+               
+                  
+              </div>
+        
+    
+    </div>
+     <div class="table-meta mt-3">
+        <div class="row">
+            <mat-paginator [hidden]="!data?.response.totalCount" [length]="data?.response.totalCount" [hidePageSize]="true"
+                  [pageIndex]="data?.response.currentPageIndex -1" [pageSize]="data?.response.pageSize" (page)="search($event)" showFirstLastButtons>
+                </mat-paginator>
+        
+        </div>
+
+    </div>
+
+</div> -->

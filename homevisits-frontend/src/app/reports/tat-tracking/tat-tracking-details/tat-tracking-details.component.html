@@ -1,0 +1,160 @@
+<div class="bg-white p-4 mb-5">
+  <div class="header-section">
+    <div class="logo">
+      <img src="../../../../assets/alfa-logo.png" alt="" />
+    </div>
+    <h4 class="font-weight-bold mt-3 mb-2 text-uppercase">TAT Tracking details Report</h4>
+  </div>
+  <div class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid">
+    <div>
+      <div>
+        <form #roleForm="ngForm" class="mb-0">
+          <div>
+            <div class="row m-0 ">
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">VISIT DATE FROM</label>
+
+                  <p class="font-weight-bold">{{visitList?.visitDateFrom }}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">VISIT DATE TO</label>
+
+                  <p class="font-weight-bold">{{visitList?.visitDateTo }}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">COUNTRY</label>
+
+                  <p class="font-weight-bold">{{visitList?.countryOption}}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">GOVERNORATE</label>
+
+                  <p class="font-weight-bold">{{visitList?.governorateOption}}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">AREA</label>
+
+                  <p class="font-weight-bold">{{visitList?.areaOption}}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">DELAYED</label>
+
+                  <p class="font-weight-bold">{{visitList?.delayedOption}}</p>
+                </div>
+              </div>
+              <div class="col-lg-4 ">
+                <div class="form-group mb-0">
+                  <label class="text-muted">CHEMIST</label>
+
+                  <p class="font-weight-bold">{{visitList?.chemistOption}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row m-0 ">
+            <div class="col-lg-12 ">
+              <div class="form-group mb-0">
+                <label class="text-muted">Total Visits</label>
+
+                <p class="font-weight-bold">{{visitList?.totalVisitsNo}}</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner-content have-table position-relative p-4 bg-white container-fluid">
+    <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+      <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+      <div class="spinner-border text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+      No Data Avaliable
+    </div>
+    <div class="table-wrap table-responsive">
+      <!-- <perfect-scrollbar> -->
+      <!-- *ngIf="data?.items.length>0"  -->
+
+      <div style="max-width: 100%" *ngIf="data?.visitReports?.length > 0">
+        <table class="table m-0" mat-table [dataSource]="dataSource">
+          <!-- Status Column -->
+          <ng-container matColumnDef="VISITDATE">
+            <th mat-header-cell *matHeaderCellDef>Visit Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.visitDate}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="VISITNO">
+            <th mat-header-cell *matHeaderCellDef>Visits number</th>
+            <td mat-cell *matCellDef="let element">{{ element.visitNo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="PATIENTMOBILE">
+            <th mat-header-cell *matHeaderCellDef>Patient Mobile</th>
+            <td mat-cell *matCellDef="let element">{{ element.patientMobile }}</td>
+          </ng-container>
+          <ng-container matColumnDef="CHEMIST">
+            <th mat-header-cell *matHeaderCellDef>Chemist</th>
+            <td mat-cell *matCellDef="let element">{{ element.chemist }}</td>
+          </ng-container>
+          <ng-container matColumnDef="REQUESTDATE">
+            <th mat-header-cell *matHeaderCellDef>Request Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.requestDate }}</td>
+          </ng-container>
+          <ng-container matColumnDef="CONFIRMDATE">
+            <th mat-header-cell *matHeaderCellDef>Confirm Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.confirmDate }}</td>
+          </ng-container>
+          <ng-container matColumnDef="ONTHEWAYDATE">
+            <th mat-header-cell *matHeaderCellDef>On the way date</th>
+            <td mat-cell *matCellDef="let element">{{ element.ontheWayDate }}</td>
+          </ng-container>
+          <ng-container matColumnDef="ARRIVEDATE">
+            <th mat-header-cell *matHeaderCellDef>Arrive Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.delayed}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="DONEDATE">
+            <th mat-header-cell *matHeaderCellDef>Done Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.delayed}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="REJECTEDDATE">
+            <th mat-header-cell *matHeaderCellDef>Rejected Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.delayed}}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <!-- </perfect-scrollbar> -->
+    </div>
+    <div class="table-meta mt-4">
+      <div class="row">
+        <p class="col-lg-4 col-md-6">{{visitList?.printedBy}}</p>
+        <p class="col-lg-4 col-md-6 font-weight-bold text-center">Page 1 of 1</p>
+        <p class="col-lg-4 col-md-6 text-right">{{visitList?.printedDate}}</p>
+      </div>
+    </div>
+  </div>
+</div>

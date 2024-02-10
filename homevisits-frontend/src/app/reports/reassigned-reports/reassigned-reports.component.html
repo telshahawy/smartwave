@@ -1,0 +1,149 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form [formGroup]="visitReportForm" (ngSubmit)="onSubmit()">
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4"> Reassigned Report</p>
+
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4">
+          <div class="dates">
+            <mat-form-field appearance="fill">
+              <!-- <mat-label>Enter a date range</mat-label> -->
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate
+                  placeholder="From / "
+                  formControlName="visitDateFrom"
+                />
+                <input
+                  matEndDate
+                  placeholder="To"
+                  formControlName="visitDateTo"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <div
+            *ngIf="
+              (f.visitDateFrom?.errors || f.visitDateTo?.errors) && submitted
+            "
+            class="alert alert-danger"
+          >
+            <div
+              *ngIf="
+                f.visitDateFrom?.errors?.required ||
+                f.visitDateTo?.errors?.required
+              "
+            >
+              Visit Date is Required
+            </div>
+            <div
+              *ngIf="f.visitDateTo.invalid && !f.visitDateTo?.errors?.required"
+            >
+              Date To is Invalid.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="select icon-down-arrow w-100">
+            <select class="form-control" formControlName="countryId">
+              <option [value]="''">-- Countries --</option>
+              <option
+                *ngFor="let country of countries"
+                [value]="country.countryId"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="select icon-down-arrow w-100">
+            <select class="form-control" formControlName="governorateId">
+              <option [value]="''">-- Default governorates --</option>
+              <option
+                *ngFor="let gover of governorates"
+                [value]="gover.governateId"
+              >
+                {{ gover.governateName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="select icon-down-arrow w-100">
+            <select class="form-control" formControlName="areaId">
+              <option [value]="''">-- Area --</option>
+              <option *ngFor="let gover of areas" [value]="gover.geoZoneId">
+                {{ gover.geoZoneName }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="select icon-down-arrow w-100">
+            <select class="form-control" formControlName="chemistId">
+              <option [value]="''">--Chemist --</option>
+              <option *ngFor="let gover of chemists" [value]="gover.chemistId">
+                {{ gover.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="select icon-down-arrow w-100">
+              <select class="form-control" formControlName="reassignedChemistId">
+                <option [value]="''">--Chemist --</option>
+                <option *ngFor="let gover of chemists" [value]="gover.reassignedChemistId">
+                  {{ gover.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        <div class="col-lg-4 mt-4">
+          <div class="select icon-down-arrow w-100">
+            <select class="form-control" formControlName="delayed">
+              <option [value]="''">-- Delayed --</option>
+              <option *ngFor="let delay of delayed" [value]="delay.name">
+                {{ delay.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+            <div class="select icon-down-arrow w-100">
+              <select class="form-control" formControlName="reason">
+                <option [value]="''">-- Reasons --</option>
+                <option *ngFor="let reason of reasons" [value]="reason.id">
+                  {{ reason.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <button
+      (click)="visitReportForm.reset()"
+        class="btn form-control btn-primary btn-bordered border-0 col-lg-2 col-6 font-weight-bold mr-lg-3"
+      >
+        <i class="icon-garbage mr-1"></i>CLEAR
+      </button>
+
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Generate'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

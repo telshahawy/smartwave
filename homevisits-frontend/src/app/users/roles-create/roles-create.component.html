@@ -1,0 +1,279 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form
+    #roleForm="ngForm"
+    (ngSubmit)="roleForm.form.valid && onSubmit(roleForm)"
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">Save User</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder=" "
+              [(ngModel)]="name"
+              required
+              #nameControl="ngModel"
+            />
+            <label class="float-label">Name</label>
+          </div>
+
+          <div
+            *ngIf="nameControl.invalid && roleForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              (keypress)="onlyNumberKey($event)"
+              name="phoneNumber"
+              [(ngModel)]="phoneNumber"
+              placeholder="  "
+              [pattern]="mobNumberPattern"
+              minlength="8"
+              #mobileControl="ngModel"
+              required
+              minlength="8"
+            />
+            <label class="float-label">Mobile Number</label>
+          </div>
+          <div
+            *ngIf="mobileControl.invalid && roleForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="mobileControl.errors.required">Mobile is required.</div>
+            <div *ngIf="mobileControl.errors.minlength">
+              Mobile Minimum Length is
+              {{ mobileControl.errors.minlength?.requiredLength }}
+            </div>
+
+            <div *ngIf="mobileControl?.errors?.maxlength">
+              Mobile Minimum Length is
+              {{ mobileControl?.errors?.maxlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl.errors.pattern">
+              Mobile number not valid (Must Start with zero or +).
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-lg-4 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <input type="text" class="form-control" name="description" placeholder=" " ngModel required #descriptionControl="ngModel">
+                        <label class="float-label ">Description</label>
+                    </div>
+                       
+                    <div *ngIf="descriptionControl.invalid &&  roleForm.submitted"
+    class="alert alert-danger">
+
+  <div *ngIf="descriptionControl.errors.required">
+    Description is required.
+  </div>
+  
+                </div>
+                </div> -->
+                <div class="col-lg-4 mb-2 mb-lg-3">
+                  <div class="select icon-down-arrow w-100">
+                   
+                    <ng-select
+                      [items]="roles"
+                      name="roleId"
+                      ngModel
+                      #Role
+                      [(ngModel)]="roleId"
+                      placeholder="Select User Role"
+                      bindLabel="name"
+                      bindValue="roleId"
+                      [multiple]="false"
+                      (change)="roleChanged($event)"
+                      required
+                    >
+                    </ng-select>
+                    <div
+            *ngIf="Role.invalid && roleForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="Role.errors.required">Role is required.</div>
+          </div>
+                  </div>
+                 
+                </div>
+       
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+           
+            <ng-select
+              [items]="areas"
+              name="geoZones"
+              ngModel
+              #geoZonesControl
+              [(ngModel)]="geoZones"
+              placeholder="Select Area"
+              bindLabel="name"
+              bindValue="geoZoneId"
+              [multiple]="true"
+            >
+            </ng-select>
+          </div>
+          <!-- <div *ngIf="geoZonesControl.invalid && roleForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="geoZonesControl.errors.required">
+                    Area is required.
+                  </div>
+                  
+                                </div> -->
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Status(Active)
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="isActive"
+              [(ngModel)]="isActive"
+              [value]="userData?.isActive"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <!-- <div class="col-lg-12 mb-2 mb-lg-3">
+                 <div id='treeparent' *ngIf="vm.field">
+                        <ejs-treeview #treeview id='treeelement' [fields]='vm.field' [showCheckBox]='showCheckBox' (nodeChecked)='nodeChecked($event)'></ejs-treeview>
+                    </div>
+                </div> -->
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">pages permissions</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+      <div class="col-lg-4 mb-lg-0 mb-3">
+        <div class="form-group mb-0">
+          <div id='treeparent' *ngIf="vm.field">
+            <ejs-treeview #treeview id='treeelement' [checkedNodes] ='vm.checkedNodes' [fields]='vm.field' [showCheckBox]='showCheckBox' (nodeChecked)='nodeChecked($event)'></ejs-treeview>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">credentials</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-lg-0 mb-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              id="username"
+              name="userName"
+              [(ngModel)]="userName"
+              ngModel
+              #usernameControl="ngModel"
+              [required]="UserId?false:true"
+            />
+            <label for="username" class="float-label">username</label>
+          </div>
+          <div
+            *ngIf="usernameControl.invalid && roleForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="usernameControl.errors.required">
+              Username is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-lg-0 mb-3">
+          <div class="form-group mb-0">
+            <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" -->
+            <input
+              type="password"
+              class="form-control"
+              placeholder=" "
+              id="loginPass"
+              ngModel
+              name="password"
+              #passwordControl="ngModel"
+              [required]="UserId?false:true"
+              minlength="8"
+            />
+            <label for="exampleInputPassword1" class="float-label"
+              >Password</label
+            >
+            <span class="showpass position-absolute" (click)="TogglePassword()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <g style="opacity: 0.6">
+                  <rect style="fill: none" width="24" height="24" />
+                  <path
+                    style="fill: #1b263c"
+                    d="M11,15a11.731,11.731,0,0,1-6.726-2.1A11.837,11.837,0,0,1,0,7.5a11.818,11.818,0,0,1,22,0,11.836,11.836,0,0,1-4.273,5.4A11.731,11.731,0,0,1,11,15ZM11,2.5a5,5,0,1,0,5,5A5.005,5.005,0,0,0,11,2.5Zm0,8a3,3,0,1,1,3-3A3,3,0,0,1,11,10.5Z"
+                    transform="translate(1.12 4.5)"
+                  />
+                </g>
+              </svg>
+            </span>
+          </div>
+          <div
+            *ngIf="passwordControl.invalid && roleForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="passwordControl.errors.required">
+              Password is required.
+            </div>
+            <!-- <div *ngIf="passwordControl.errors?.pattern">
+                        Only characters are allowed
+                      </div> -->
+            <div *ngIf="passwordControl.errors.minlength">
+              Password Minimum Length is
+              {{ passwordControl.errors.minlength?.requiredLength }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-4"></div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Send Credentials
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="sendCredentials"
+              [(ngModel)]="isActive"
+              [value]="userData?.isActive"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backToList()"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

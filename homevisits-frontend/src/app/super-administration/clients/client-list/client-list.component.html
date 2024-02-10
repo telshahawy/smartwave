@@ -1,0 +1,141 @@
+<div class="table-meta mb-3">
+    <div class="row">
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <a routerLink="/admin/client-create" class="btn btn-primary form-control form-control-sm font-weight-bold ">
+                Add new Client
+            </a>
+        </div>
+        <div class="col-xl-8 col-lg-4 col-md-6 mt-3 mt-md-0 d-flex align-items-center  justify-content-end">
+            <div class="dropdown pr-3">
+                <a class="form-control-sm d-inline-block  dropdown-toggle" href="#" role="button"
+                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    Status
+                    <i class="icon-down-arrow px-3"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Country</a>
+                    <a class="dropdown-item" href="#">Country</a>
+                    <a class="dropdown-item" href="#">Country</a>
+                </div>
+            </div>
+            <div class="dropdown ">
+                <a class="form-control-sm d-inline-block  dropdown-toggle" href="#" role="button"
+                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    Country
+                    <i class="icon-down-arrow px-3"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Country</a>
+                    <a class="dropdown-item" href="#">Country</a>
+                    <a class="dropdown-item" href="#">Country</a>
+                </div>
+            </div>
+        </div>
+
+
+        <form class="form-group col-lg-4 col-md-6 mt-3 mt-lg-0 mx-auto col-xl-2 p-0 m-0 ">
+            <svg class="position-absolute search-svg" xmlns="http://www.w3.org/2000/svg" width="24"
+                height="24" viewBox="0 0 24 24">
+                <defs></defs>
+                <g style="opacity:0.3;" transform="translate(-0.387)">
+                    <rect style="fill:none;" width="24" height="24" transform="translate(0.387)" />
+                    <g transform="translate(2 2)">
+                        <path style="fill:#1b263c;"
+                            d="M19.878,18.7l-5.81-5.81a7.932,7.932,0,1,0-1.178,1.178l5.81,5.81a.417.417,0,0,0,.589,0l.589-.589A.417.417,0,0,0,19.878,18.7ZM7.917,14.167a6.25,6.25,0,1,1,6.25-6.25A6.257,6.257,0,0,1,7.917,14.167Z"
+                            transform="translate(0 0)" />
+                    </g>
+                </g>
+            </svg>
+            <input type="text" class="form-control form-control-sm search" placeholder="  "
+                id="username">
+            <label for="username" class="float-label ">search</label>
+
+        </form>
+    </div>
+
+</div>
+<div class="table-wrap table-responsive">
+
+    <table class="table m-0">
+        <thead>
+            <tr>
+                <th scope="col">Status</th>
+                <th scope="col">Client Code</th>
+                <th scope="col">Country</th>
+                <th scope="col">Url Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><i class="icon-error"></i></th>
+                <td>Client Code</td>
+                <td>Country</td>
+                <td>Url Name</td>
+                <td>
+                    <a routerLink="/admin/client-edit/1" class="icon-edit mr-2"></a>
+                    <a href="#" class="icon-garbage"></a>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><i class="icon-check"></i></th>
+                <td>Client Code</td>
+                <td>Country</td>
+                <td>Url Name</td>
+                <td>
+                    <a routerLink="/admin/client-edit/1" class="icon-edit mr-2"></a>
+                    <a href="#" class="icon-garbage"></a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="table-meta mt-3">
+    <div class="row">
+     
+        <div class="col-xl-2 col-lg-4 offset-xl-6 col-md-6 justify-content-center mt-3 mt-md-0 d-flex align-items-center justify-content-md-end">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination m-0">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true" class="icon-back-1"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">30</a></li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true" class="icon-back-1 reverse"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xl-2 col-lg-4 d-flex col-md-6 justify-content-center justify-content-lg-end  mx-lg-0 mx-auto mt-2 mt-lg-0 align-items-center ">
+            <div class="dropdown ">
+                <a class="form-control-sm border-0 d-inline-block  dropdown-toggle" href="#"
+                    role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    20 item per page
+                    <i class="icon-down-arrow px-3"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">230 item per page</a>
+                    <a class="dropdown-item" href="#">210 item per page</a>
+                    <a class="dropdown-item" href="#">230 item per page</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

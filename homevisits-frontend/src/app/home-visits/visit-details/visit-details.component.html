@@ -1,0 +1,174 @@
+
+    <mat-dialog-content>
+   <h1 mat-dialog-title class="doNotPrint"> Visit Details <a href="javascript:;" class="float-right cursor-pointer" (click)="close()">
+        <mat-icon >close</mat-icon>
+     
+      </a></h1>
+   
+<!-- <div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white "> -->
+    <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+        <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+        <div class="spinner-border text-secondary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+        <div class="bordered-shadow mb-4 " *ngIf="details">
+            <div class="doNotPrint" *ngIf="details" style="float:right;margin-top: 5px;margin-right: 5px;"><button (click)="print()">  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <defs>
+                    <style>
+                        .a {
+                            fill: none;
+                        }
+                    </style>
+                </defs>
+                <g transform="translate(-9472 107)">
+                    <rect class="a" width="32" height="32" transform="translate(9472 -107)" />
+                    <g transform="translate(9474.667 -104.333)">
+                        <path
+                            d="M22.76,6.719h-.729V3.906A3.911,3.911,0,0,0,18.125,0H8.542A3.911,3.911,0,0,0,4.635,3.906V6.719H3.906A3.911,3.911,0,0,0,0,10.625v6.25a3.911,3.911,0,0,0,3.906,3.906h.729v3.542a2.346,2.346,0,0,0,2.344,2.344H19.688a2.346,2.346,0,0,0,2.344-2.344V20.781h.729a3.911,3.911,0,0,0,3.906-3.906v-6.25A3.911,3.911,0,0,0,22.76,6.719ZM6.2,3.906A2.346,2.346,0,0,1,8.542,1.563h9.583a2.346,2.346,0,0,1,2.344,2.344V6.719H6.2ZM20.469,24.323a.782.782,0,0,1-.781.781H6.979a.782.782,0,0,1-.781-.781V16.615H20.469ZM25.1,16.875a2.346,2.346,0,0,1-2.344,2.344h-.729v-2.6H22.5a.781.781,0,0,0,0-1.563H4.167a.781.781,0,1,0,0,1.563h.469v2.6H3.906a2.346,2.346,0,0,1-2.344-2.344v-6.25A2.346,2.346,0,0,1,3.906,8.281H22.76A2.346,2.346,0,0,1,25.1,10.625Z" />
+                        <path
+                            d="M205.948,353h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                            transform="translate(-190.531 -334.615)" />
+                        <path
+                            d="M205.948,417h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                            transform="translate(-190.531 -395.281)" />
+                        <path d="M68.281,193h-2.5a.781.781,0,0,0,0,1.563h2.5a.781.781,0,0,0,0-1.562Z"
+                            transform="translate(-61.615 -182.948)" />
+                    </g>
+                </g>
+            </svg>
+        </button></div>
+            <br>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5 sys-parameters" *ngIf="details" id="content">
+               
+                <div class="col-lg-6">
+                 
+                   <label class="log">Visit No :</label>  {{details.visitCode}}
+                   
+                    
+                </div>
+                <div class="col-lg-6">
+                 
+                    <label class="log">Visit Date : </label> {{details.visitDate | date :'dd/MM/yyyy'}} ({{details.timeSlot}})
+                   
+                    
+                </div>
+                <div class="col-lg-6">
+                 
+                    <label class="log"> Visit Status :</label> {{details.statusName}}
+                   
+                    
+                </div>
+                <!-- <div class="col-lg-6">
+                 
+                    Assigned To : {{details.visitDate}}
+                   
+                    
+                </div>
+                <div class="col-lg-6">
+                 
+                    Patient No : {{details.visitNo}}
+                   
+                    
+                </div> -->
+                <div class="col-lg-6">
+                 
+                    <label class="log"> Patient Name :</label> {{details.name}}
+                   
+                    
+                </div>
+                <div class="col-lg-3">
+                 
+                    <label class="log">Age : </label> {{details.dob}}
+                   
+                    
+                </div>
+                <div class="col-lg-3">
+                 
+                    <label class="log">Gender :  </label> {{details.genderName}}
+                   
+                    
+                </div>
+                <div class="col-lg-6">
+                 
+                    <label class="log"> Mobile Number : </label> {{details.patientMobileNumber}}
+                   
+                    
+                </div>
+                <div class="col-lg-6">
+                 
+                    <label class="log"> Governorate : </label> {{details.goverName}}
+                   
+                    
+                </div>
+                <div class="col-lg-6">
+                 
+                    <label class="log">  Area : </label> {{details.zoneName}}
+                   
+                    
+                </div>
+                <!-- <div class="col-lg-6">
+                 
+                    Created By : {{details.createdBy}}
+                   
+                    
+                </div> -->
+               
+                <div class="col-lg-6">
+                 
+                    <label class="log">Creation Date  : </label> {{details.actionCreationDate | date :'dd/MM/yyyy h:mm a'}}
+                   
+                    
+                </div>
+                <div class="col-lg-12">
+                 
+                    <label class="log">Address : </label> {{details.addressFormatted}}
+                   
+                    
+                </div>
+                <!-- <div class="col-lg-12">
+                 
+                    Map Location : {{details.name}}
+                   
+                    
+                </div> -->
+                <div class="col-lg-12">
+                 
+                    <label class="log">Required Tests : </label> {{details.requiredTests}}
+                   
+                    
+                </div>
+                <div class="col-lg-12">
+                 
+                    <label class="log"> Comments  : </label> {{details.comments}}
+                   
+                    
+                </div>
+              
+              
+</div><br>
+
+    <h4 *ngIf="details">History</h4><br>
+<div class="col-lg-12" *ngIf="details">
+            
+    <table >
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>User</th>
+            <!-- <th>Location</th> -->
+        </tr>
+        <tr *ngFor="let status of details.visitStatuses">
+            <td>{{status.creationDate | date :'dd/MM/yyyy h:mm a'}}</td>
+            <td>{{status.status}}</td>
+            <td>{{status.userName}}</td>
+        </tr>
+    </table><br>
+     
+      
+  </div>
+  <!-- </div> -->
+
+</div>
+</mat-dialog-content>
+

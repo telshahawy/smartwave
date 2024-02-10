@@ -1,0 +1,56 @@
+<div class="bordered-shadow mb-4 bg-white">
+  <div class="row m-0 py-xl-4 p-2 px-xl-5">
+    <div class="col-lg-4 track-chemist">
+      <!-- search -->
+      <div class="form-group table-meta pr-3">
+        <svg class="position-absolute search-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24">
+          <defs></defs>
+          <g style="opacity: 0.3" transform="translate(-0.387)">
+            <rect style="fill: none" width="24" height="24" transform="translate(0.387)"></rect>
+            <g transform="translate(2 2)">
+              <path style="fill: #1b263c"
+                d="M19.878,18.7l-5.81-5.81a7.932,7.932,0,1,0-1.178,1.178l5.81,5.81a.417.417,0,0,0,.589,0l.589-.589A.417.417,0,0,0,19.878,18.7ZM7.917,14.167a6.25,6.25,0,1,1,6.25-6.25A6.257,6.257,0,0,1,7.917,14.167Z"
+                transform="translate(0 0)"></path>
+            </g>
+          </g>
+        </svg>
+        <input type="text" class="form-control form-control-sm search" placeholder="" id="username"
+          (input)="onSearchChange($event.target.value)" />
+        <label for="username" class="float-label">search</label>
+      </div>
+      <!--chemitst list -->
+      <ul class="list-unstyled pr-3">
+        <li class="my-4" *ngFor="let log of result.response.chemistLastTrackingLogs">
+          <a (click)="openDialog(log)" class="d-flex align-items-center bordered-shadow p-3">
+            <div class="badge badge-primary rounded-circle p-3 mr-3">{{getInitails(log.name)}}</div>
+            <div>
+              <div class="font-weight-bold">{{log.name}}</div>
+              <div>{{log.phoneNumber}} - {{log.areaName}}</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div class="row">
+        <div class="col-md-3">
+          <h5>{{result.response.chemistLastTrackingLogs.length*result.response.currentPageIndex}} of {{result.response.totalCount}}</h5>
+        </div>
+        <mat-button-toggle-group class="col-md-4 offset-md-5" name="fontStyle" aria-label="Font Style">
+          <button mat-icon-button (click)="decrementPage()" [disabled]="result.response.currentPageIndex == 1"> <mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button (click)="incrementPage()" [disabled]="(result.response.currentPageIndex*result.response.pageSize) > result.response.totalCount"><mat-icon>arrow_forward</mat-icon></button>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="col-lg-8 bordered-shadow position-relative map p-0">
+      <div class="point">
+        <agm-map [latitude]="30.0444" [longitude]="31.2357">
+          <agm-marker *ngFor="let log of result.response.chemistLastTrackingLogs" [latitude]="log.latitude"
+            [longitude]="log.longitude" (markerClick)="openDialog(log)" [markerDraggable]="false">
+          </agm-marker>
+        </agm-map>
+
+      </div>
+    </div>
+  </div>
+
+</div>

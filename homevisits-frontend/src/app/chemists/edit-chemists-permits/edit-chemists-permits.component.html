@@ -1,0 +1,103 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+<form
+    #editForm="ngForm"
+    (ngSubmit)="editForm.form.valid && onSubmit(editForm)"
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">EDIT PERMISSION</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              required
+              name="permitDate"
+              [ngModel]="permitDate | date: 'yyyy-MM-dd'"
+              (ngModelChange)="permitDate = $event"
+              placeholder="Date"
+              ngModel
+              #nameControl="ngModel"
+              required
+            />
+            <label class="float-label">Date</label>
+          </div>
+
+          <div
+            *ngIf="nameControl.invalid && editForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Date is required.</div>
+          </div>
+        </div>
+        <div class="col-12"></div>
+        <br />
+        <h4 class="col-12 font-weight-bold px-0 py-3 border-0">
+         Time Zones
+        </h4>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+            <div class="form-group mb-0">
+                <input
+                type="time"
+                class="form-control"
+                name="startTime"
+                [ngModel]="timeFunction(startTime)"
+                (ngModelChange)="startTime = $event"
+                #startTimeControl="ngModel"
+                required
+                ngModel
+              />
+              <label class="float-label">Start Time</label>
+            </div>
+            <div
+            *ngIf="startTimeControl.invalid && editForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Start Time is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+            <div class="form-group mb-0">
+                <input
+                type="time"
+                class="form-control"
+                name="endTime"
+                [ngModel]="timeFunction(endTime)"
+                (ngModelChange)="endTime = $event"
+                #endTimeControl="ngModel"
+                required
+                ngModel
+              />
+              <label class="float-label">End Time</label>
+            </div>
+            <div
+            *ngIf="endTimeControl.invalid && editForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">End Time is required.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backToList()"
+      >
+        Cancel
+      </button>
+      <!-- <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                type="submit" >Save</button> -->
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Save'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

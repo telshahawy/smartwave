@@ -1,0 +1,326 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <div class="mt-4 mb-4 text-center" [hidden]="allowedDates">
+    <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+    <div class="spinner-border text-secondary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <form
+    *ngIf="allowedDates"
+    #visitForm="ngForm"
+    (ngSubmit)="visitForm.form.valid && onSubmit(visitForm)"
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4" id="title">Visit Data</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5 sys-parameters">
+        <div
+          *ngIf="visitDateControl.value && times?.length > 0"
+          class="col-md-12"
+        >
+          <div class="text-center">
+            <countdown
+              #cd
+              [ngClass]="isStartCount ? 'bg-danger' : 'bg-success'"
+              class="badge text-white rounded-circle p-3"
+              [config]="{ leftTime: 180, format: 'm:s', demand: true }"
+            ></countdown>
+
+            <!-- <span > {{isStartCount?timeLeft:'Start'}}</span>-->
+          </div>
+        </div>
+        <div class="col-lg-6 mb-2 mb-lg-6">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="  "
+              (change)="visitDateChanged()"
+              id="visitDate"
+              name="visitDate"
+              [(ngModel)]="visitDate"
+              required
+              #visitDateControl="ngModel"
+              [min]="startDate"
+              [max]="endDate"
+            />
+            <label class="float-label">Visit Date</label>
+          </div>
+          <div
+            *ngIf="visitDateControl.invalid && visitForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="visitDateControl.errors.required">
+              Visit Date is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-2 mb-lg-6">
+          <div class="form-group mb-0">
+            <input
+              type="number"
+              class="form-control"
+              name="plannedNoOfPatients"
+              [(ngModel)]="plannedNoOfPatients"
+              required
+              #noPatientControl="ngModel"
+              [pattern]="noZeroPattern"
+            />
+            <label class="float-label">No. of Patients</label>
+          </div>
+          <div
+            *ngIf="noPatientControl.invalid && visitForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="noPatientControl.errors.required">
+              No. of Patients is required.
+            </div>
+            <div *ngIf="noPatientControl.errors?.pattern">
+              Value must be greater than zero.
+            </div>
+          </div>
+        </div>
+        <div class="form-check form-check-inline col-lg-12">
+          <table>
+            <tr>
+              <td>
+                <input
+                  type="radio"
+                  value="selectbytime"
+                  (change)="timeChange($event)"
+                  [(ngModel)]="selectedType"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                Select By time
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="radio"
+                  value="selectbychemist"
+                  (change)="handleChange($event)"
+                  [(ngModel)]="selectedType"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                Select By chemist
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div
+          class="col-lg-6 mb-2 mb-lg-3"
+          *ngIf="selectedType == 'selectbychemist'"
+        >
+          <div class="select icon-down-arrow w-100">
+            <select
+              class="form-control"
+              (change)="chemistChanged()"
+              name="chemistId"
+              [(ngModel)]="chemistId"
+            >
+              <option [value]="null" disabled>-- Choose Chemist --</option>
+              <option
+                *ngFor="let chemist of chemists"
+                [value]="chemist.chemistId"
+              >
+                {{ chemist.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          class="col-lg-6 mb-3 d-md-flex d-block align-items-center"
+          *ngIf="!selectedType"
+        >
+          <div class="form-group mb-0">
+            <!-- <label class="control checkbox"> -->
+            <input
+              type="checkbox"
+              (change)="selectAllChemistsChange($event)"
+              value="angular"
+            />
+            <!-- <span class="control-indicator  bg-white"></span> -->
+            Show All Chemist
+            <!-- </label> -->
+          </div>
+        </div>
+        <div
+          class="mt-4 mb-4 text-center"
+          [hidden]="!loading"
+          id="loading"
+          *ngIf="!setSpecificTime"
+        >
+          <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+          <div class="spinner-border text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div
+            class="py-xl-4 p-2 px-xl-5 text-center"
+            *ngIf="visitDateControl.value && times?.length > 0"
+          >
+            <label
+              class="time-radio-wrap position-relative"
+              *ngFor="let time of times; let i = index"
+            >
+              <span
+                (click)="startCount(time.timeZoneFrameGeoZoneId)"
+                [ngClass]="{
+                  active: isActiveTimeStart == time.timeZoneFrameGeoZoneId
+                }"
+                class="time-radio w-100"
+              >
+                {{ time.timeZoneStartTime }} - {{ time.timeZoneEndTime }}
+              </span>
+            </label>
+            <button
+              type="button"
+              (click)="openVisitLostTimeDialog()"
+              class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4"
+            >
+              Discard
+            </button>
+          </div>
+          <div *ngIf="!visitDateControl.value" style="color: red">
+            Please Choose Visit Date at first
+          </div>
+          <div
+            style="color: red"
+            *ngIf="times?.length == 0 && !loading && visitDateControl.value"
+          >
+            No available slots in this area or date
+          </div>
+
+          <!-- <div *ngIf="timeRadioControl.invalid && visitForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="timeRadioControl.errors.required">
+                   Time is required.
+                  </div>
+                  
+                                </div> -->
+        </div>
+        <div class="col-12"></div>
+        <div class="col-lg-6 mb-3 d-md-flex d-block align-items-center">
+          <div class="form-group mb-0">
+            <!-- <label class="control checkbox"> -->
+            <input
+              type="checkbox"
+              (change)="checkTimeChange($event)"
+              value="angular"
+            />
+            <!-- <span class="control-indicator  bg-white"></span> -->
+            Set Specific Time
+            <!-- </label> -->
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3" *ngIf="setSpecificTime">
+          <div class="form-group mb-0">
+            <!--  #lostTimeControl="ngModel" required -->
+            <input
+              type="time"
+              [disabled]="inValidDate"
+              class="form-control"
+              placeholder="  "
+              name="visitTime"
+              ngModel
+            />
+            <label class="float-label">Visit Time</label>
+          </div>
+          <br />
+          <span style="color: red" *ngIf="inValidDate"
+            >Selected date less than today date</span
+          >
+        </div>
+        <!-- <div class="col-lg-4 mb-2 mb-lg-3" *ngIf="showAgeSegment">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="relativeAgeSegmentId"
+              name="relativeAgeSegmentId"
+              class="form-control"
+              placeholder=""
+              [(ngModel)]="relativeAgeSegmentId"
+              #segmentControl="ngModel"
+              required
+            >
+              <option [ngValue]="undefined" disabled>
+                -- Choose Age Segment --
+              </option>
+              <option
+                *ngFor="let segment of segments"
+                [value]="segment.ageSegmentId"
+              >
+                {{ segment.name }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="segmentControl.invalid && visitForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="segmentControl.errors.required">
+              Age Segment is required.
+            </div>
+          </div>
+        </div> -->
+        <div class="col-12"></div>
+        <div class="col-lg-7 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <textarea
+              type="text"
+              class="form-control"
+              placeholder="  "
+              name="requiredTests"
+              ngModel
+            ></textarea>
+            <label for="" class="float-label">Requires Tests</label>
+          </div>
+        </div>
+        <div class="col-12"></div>
+        <div class="col-lg-7 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <textarea
+              type="text"
+              class="form-control"
+              placeholder="  "
+              name="comments"
+              ngModel
+            ></textarea>
+            <label for="" class="float-label">Comments</label>
+          </div>
+        </div>
+        <h5 class="col-12 font-weight-bold px-0 py-3 border-0">ATTACHMENT</h5>
+        <div class="col-lg-4 mb-2 mb-lg-0">
+          <!-- <input type="text" hidden name="personalPhoto" ngModel> -->
+          <!-- <label class="file w-100">
+                       
+
+                         <input type="file" class="img-input" id="file" aria-label="File browser example"   (change)="getFiles($event)">
+                        <span class="file-custom"></span>
+                    </label> -->
+
+          <input type="file" id="file" (change)="getFiles($event)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="reset"
+        (click)="backFromCreateVisit()"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

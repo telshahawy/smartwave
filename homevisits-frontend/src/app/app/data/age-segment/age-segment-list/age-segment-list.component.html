@@ -1,0 +1,211 @@
+<div class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid ">
+    <!-- change id's and data-targets to what you need  -->
+    <div>
+
+        <a href="javascript:;" class="text-decoration-none  pointer d-flex justify-content-between align-items-center"
+            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h6 class="font-weight-bold m-0 text-uppercase">SEARCH AGE SEGMENTS </h6>
+            <p class="m-0" (click)="showForm?showForm=false:showForm=true">
+                4 results found
+
+                <i class="icon-down-arrow" [ngClass]="{'rotated':showForm}"></i>
+            </p>
+        </a>
+
+        <div *ngIf="showForm">
+            <form #roleForm="ngForm">
+                <div class="mb-4 ">
+
+                    <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" placeholder="  " name="code"
+                                    [(ngModel)]="code">
+                                <label class="float-label ">Code</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" placeholder="  " name="name"
+                                    [(ngModel)]="name">
+                                <label class="float-label "> Name</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group ">
+
+                                Status(Active)
+                                <label class="switch m-0 ml-3">
+                                    <input type="checkbox" checked name="isActive"
+                                    [(ngModel)]="isActive">
+                                    <span class="slider round"></span>
+                                </label>
+                              
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-2 mb-lg-3">
+                            <div class="form-group ">
+
+                                NeedExperts
+                                <label class="switch m-0 ml-3">
+                                    <input type="checkbox" checked name="NeedExpert"
+                                    [(ngModel)]="needExpertType">
+                                    <span class="slider round"></span>
+                                </label>
+                              
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row m-0 justify-content-end">
+                    <button
+                        class="btn form-control btn-primary btn-bordered border-0  col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                        type="button" (click)="clear(roleForm)"><i class="icon-garbage mr-1"></i>CLEAR</button>
+                    <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold" type="submit"
+                        (click)="search()">Search</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="inner-content have-table position-relative  p-4 mb-5 bg-white container-fluid ">
+    <div class="table-meta mb-3">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-5">
+                <button (click)="gotoEdit()" *appIsGranted="[ageSegmentPage,createAction]"
+                    class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4 ">
+                    Create Segment
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+        <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+        <div class="spinner-border text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+        No Data Avaliable
+    </div>
+    <div class="table-wrap table-responsive">
+
+        <!-- <perfect-scrollbar> -->
+        <!-- *ngIf="data?.items.length>0"  -->
+
+        <div style="max-width: 100%" *ngIf="data?.response?.ageSegments?.length>0">
+
+            <table class="table m-0" mat-table [dataSource]="dataSource">
+                >
+                <!-- Status Column -->
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element">
+                        <i *ngIf="element.isActive" class="icon-check"></i>
+                        <i *ngIf="!element.isActive" class="icon-error"></i>
+                    </td>
+
+                </ng-container>
+                <ng-container matColumnDef="SegmentId">
+                    <th mat-header-cell *matHeaderCellDef> Segment ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                </ng-container>
+                <ng-container matColumnDef="SegmentName">
+                    <th mat-header-cell *matHeaderCellDef> Reason Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="NeedExperts">
+                    <th mat-header-cell *matHeaderCellDef> NeedExperts </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.needExpert== false ? 'No' : 'Yes'}}
+                    </td>
+
+                </ng-container>
+                <ng-container matColumnDef="AgeFrom">
+                    <th mat-header-cell *matHeaderCellDef>Age From</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div >
+                            <span >{{element.ageFromDay}} D
+                                {{element.ageFromMonth}} M
+                                {{element.ageFromYear}} Y </span>
+                            <div >
+                                <label class="checkbox switch switch-customize   ">
+                                    <input name="checkbox" type="checkbox" [checked]="element.ageFromInclusive"
+                                        disabled>
+                                    <span class="control-indicator"></span>
+                                </label>
+                                <span> Inclusive</span>
+                            </div>
+
+                        </div>
+
+
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="AgeTo">
+                    <th mat-header-cell *matHeaderCellDef> Age To </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div >
+                            <span>{{element.ageToDay}} D
+                                {{element.ageToMonth}} M
+                                {{element.ageToYear}} Y </span>
+                            <div >
+                                <label class="checkbox switch  switch-customize ">
+                                    <input name="checkbox" type="checkbox" [checked]="element.ageToInclusive" disabled>
+                                    <span class="control-indicator"></span>
+                                </label>
+
+                                <span> Inclusive</span>
+                            </div>
+
+                        </div>
+
+                    </td>
+                </ng-container>
+
+
+
+
+                <!-- Weight Column -->
+
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">
+                        Actions
+                    </th>
+                    <td mat-cell *matCellDef="let row" class="white-space-nowrap">
+                        <a  *appIsGranted="[ageSegmentPage,updateAction]" href="javascript:;" class="icon-edit " (click)="navigate(row.ageSegmentId)">
+                        </a>
+
+                        &nbsp;
+                        <a *appIsGranted="[ageSegmentPage,DeleteAction]" href="javascript:;" class="icon-garbage" (click)="openDeleteDialog(row.ageSegmentId)">
+
+                        </a>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+        </div>
+        <!-- </perfect-scrollbar> -->
+
+    </div>
+    <div class="table-meta mt-3">
+        <div class="row">
+            <mat-paginator [hidden]="!data?.response.totalCount" [length]="data?.response?.totalCount"
+                [hidePageSize]="true" [pageIndex]="data?.response?.currentPageIndex -1"
+                [pageSize]="data?.response?.pageSize" (page)="search($event)" showFirstLastButtons>
+            </mat-paginator>
+
+        </div>
+
+    </div>
+
+</div>

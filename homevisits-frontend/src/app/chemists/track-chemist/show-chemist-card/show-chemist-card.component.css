@@ -1,0 +1,5 @@
+.my-full-screen-dialog .mat-dialog-container {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+  }

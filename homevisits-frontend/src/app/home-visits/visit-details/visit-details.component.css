@@ -1,0 +1,21 @@
+.log
+{
+  font-weight: bold;
+}
+@media print{
+    .doNotPrint{display:none !important;}
+  }
+  table, th, td {
+    border: 1px solid black;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 15px;
+    text-align: left;
+  }
+  h4 {
+    text-align: center;
+    margin: 0px auto;
+    display: block;
+}

@@ -1,0 +1,453 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form [formGroup]="chemistScheduleForm" (ngSubmit)="submit()">
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">CHEMIST DETAILS</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-md-4 col-sm-12">
+          <div class="chemistName">
+            {{ userName }}
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div *ngIf="!scheduleId" class="select icon-down-arrow w-100">
+            <select
+              name="Area"
+              class="form-control"
+              placeholder="Area"
+              formControlName="assignedChemistGeoZoneId"
+              required
+            >
+              <option value="">Areas</option>
+              <option *ngFor="let area of areas" [value]="area | json">
+                {{ area.name }}
+              </option>
+            </select>
+
+            <div
+              *ngIf="
+                f.assignedChemistGeoZoneId?.errors &&
+                (f.assignedChemistGeoZoneId.touched || isSubmitted)
+              "
+              class="alert alert-danger mt-1"
+            >
+              <div *ngIf="f.assignedChemistGeoZoneId?.errors?.required">
+                Area is Required.
+              </div>
+            </div>
+          </div>
+          <div *ngIf="scheduleId" class="select icon-down-arrow w-100">
+            <select
+              name="Area"
+              class="form-control"
+              placeholder="Area"
+              formControlName="assignedChemistGeoZoneId"
+              required
+              disabled
+            >
+              <option value="">Areas</option>
+              <option *ngFor="let area of areas" [value]="area.id">
+                {{ area.name }}
+              </option>
+            </select>
+
+            <div
+              *ngIf="
+                f.assignedChemistGeoZoneId?.errors &&
+                (f.assignedChemistGeoZoneId.touched || isSubmitted)
+              "
+              class="alert alert-danger mt-1"
+            >
+              <div *ngIf="f.assignedChemistGeoZoneId?.errors?.required">
+                Area is Required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="dates">
+            <mat-form-field *ngIf="!scheduleId" appearance="fill">
+              <!-- <mat-label>Enter a date range</mat-label> -->
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate
+                  placeholder="From / "
+                  formControlName="startDate"
+                />
+                <input matEndDate placeholder="To" formControlName="endDate" />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field *ngIf="scheduleId" appearance="fill">
+              <!-- <mat-label>Enter a date range</mat-label> -->
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate
+                  placeholder="From / "
+                  formControlName="startDate"
+                  disabled
+                />
+                <input
+                  matEndDate
+                  placeholder="To"
+                  formControlName="endDate"
+                  disabled
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <div
+            *ngIf="f.startDate?.errors && (f.startDate?.touched || isSubmitted)"
+            class="alert alert-danger mt-4"
+          >
+            <div
+              *ngIf="
+                f.endDate?.errors?.invalidLastDate &&
+                f.endDate?.errors?.required
+              "
+            >
+              End Date is Invalid.
+            </div>
+            <div
+              *ngIf="
+                f.endDate?.errors?.required || f.startDate?.errors?.required
+              "
+            >
+              Date is Required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">NEW SCHEDULE</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-md-5 col-sm-12">
+          <div class="row">
+            <div class="col-12">
+              <label class="headerLabel" for="satStart"> SATURDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="satStart"
+                  formControlName="satStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="satEnd"
+                  formControlName="satEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+
+              <div
+                *ngIf="f.satEnd?.errors?.invalidEndTime && f.satEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>SATURDAY End Time is Invalid.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="headerLabel" for="sunStart"> SUNDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="sunStart"
+                  formControlName="sunStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="sunEnd"
+                  formControlName="sunEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+              <div
+                *ngIf="f.sunEnd?.errors?.invalidEndTime && f.sunEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>SunDAY End Time is Invalid.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="headerLabel" for="monStart"> MONDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="monStart"
+                  formControlName="monStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="monEnd"
+                  formControlName="monEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+              <div
+                *ngIf="f.monEnd?.errors?.invalidEndTime && f.monEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>MonDAY End Time is Invalid.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="headerLabel" for="tueStart"> TUESDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="tueStart"
+                  formControlName="tueStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="tueEnd"
+                  formControlName="tueEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+              <div
+                *ngIf="f.tueEnd?.errors?.invalidEndTime && f.tueEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>TUESDAY End Time is Invalid.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="headerLabel" for="wedStart"> WEDNESDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="wedStart"
+                  formControlName="wedStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="wedEnd"
+                  formControlName="wedEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+              <div
+                *ngIf="f.wedEnd?.errors?.invalidEndTime && f.wedEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>WEDNESDAY End Time is Invalid.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="headerLabel" for="thuStart"> THURSDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="thuStart"
+                  formControlName="thuStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="thuEnd"
+                  formControlName="thuEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+              <div
+                *ngIf="f.thuEnd?.errors?.invalidEndTime && f.thuEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>THURSDAY End Time is Invalid.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="headerLabel" for="friStart"> FRIDAY </label>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="friStart"
+                  formControlName="friStart"
+                />
+                <label class="float-label">From</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-0">
+                <input
+                  type="time"
+                  class="form-control"
+                  name="friEnd"
+                  formControlName="friEnd"
+                />
+                <label class="float-label">To</label>
+              </div>
+              <div
+                *ngIf="f.friEnd?.errors?.invalidEndTime && f.friEnd?.value"
+                class="alert alert-danger"
+              >
+                <div>FRIDAY End Time is Invalid.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <!-- app.component.html -->
+          <div class="row">
+            <div class="col-md-12">
+              <agm-map
+                [latitude]="latitude"
+                [longitude]="longitude"
+                [zoom]="zoom"
+              >
+                <agm-marker
+                  [latitude]="latitude"
+                  [longitude]="longitude"
+                  [markerDraggable]="true"
+                  (dragEnd)="markerDragEnd($event)"
+                ></agm-marker>
+              </agm-map>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mt-5">
+                <input
+                  type="number"
+                  class="form-control"
+                  name="startLatitude"
+                  formControlName="startLatitude"
+                />
+                <label class="float-label">Latitude</label>
+              </div>
+
+              <div
+                *ngIf="
+                  f.startLatitude?.errors &&
+                  (f.startLatitude?.touched || isSubmitted)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="f.startLatitude?.errors?.pattern">
+                  latitude is Invalid.
+                </div>
+                <div *ngIf="f.startLatitude?.errors?.required">
+                  startLatitude is Required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mt-5">
+                <input
+                  type="number"
+                  class="form-control"
+                  name="startLangitude"
+                  formControlName="startLangitude"
+                />
+                <label class="float-label">Langitude</label>
+              </div>
+
+              <div
+                *ngIf="
+                  f.startLangitude?.errors &&
+                  (f.startLangitude.touched || isSubmitted)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="f.startLangitude?.errors?.pattern">
+                  longitude is Invalid.
+                </div>
+                <div *ngIf="f.startLangitude?.errors?.required">
+                  startLangitude is Required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backToList()"
+      >
+        Cancel
+      </button>
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Save'"
+        [isLoading]="isSubmitted"
+      ></div>
+    </div>
+  </form>
+</div>

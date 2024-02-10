@@ -1,0 +1,13 @@
+.switch-checkbox{
+    vertical-align: middle !important;
+padding: 0px 24px !important;
+width: unset !important;
+height: unset !important;
+}
+.switch{
+    vertical-align: middle !important;
+}
+.label-form{
+    margin: auto;
+    padding: 17px;
+}

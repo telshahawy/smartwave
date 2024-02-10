@@ -1,0 +1,326 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form
+    #chemistForm="ngForm"
+    (ngSubmit)="chemistForm.form.valid && onSubmit(chemistForm)"
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">edit chemist</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              id="code"
+              disabled
+              name="code"
+              placeholder=" "
+              ngModel
+              required
+              #codeControl="ngModel"
+            />
+            <label class="float-label">Chemist ID</label>
+          </div>
+
+          <div
+            *ngIf="
+              codeControl.invalid && (codeControl.dirty || codeControl.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="codeControl.errors.required">ID is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3" hidden>
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              id="userId"
+              name="userId"
+              placeholder=" "
+              ngModel
+            />
+            <label class="float-label">Chemist ID</label>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="name"
+              placeholder=" "
+              ngModel
+              #nameControl="ngModel"
+              required
+            />
+            <label class="float-label">Chemist Name</label>
+          </div>
+
+          <div
+            *ngIf="nameControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="countryId"
+              name="countryId"
+              class="form-control"
+              placeholder="Country"
+              (ngModelChange)="onOptionsSelected($event)"
+              ngModel
+            >
+              <option [ngValue]="undefined" disabled>-- Select one --</option>
+              <option
+                *ngFor="let country of countries"
+                [value]="country.countryId"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="governateId"
+              name="governateId"
+              class="form-control"
+              placeholder=""
+              (ngModelChange)="onGovernateOptionsSelected($event)"
+              ngModel
+            >
+              <option [ngValue]="undefined" disabled>-- Select one --</option>
+              <option
+                *ngFor="let governate of governats"
+                [value]="governate.governateId"
+              >
+                {{ governate.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <!-- <select class="select2-multiple" aria-label="Select menu" multiple="multiple" name="geoZoneIds" required  ngModel #geoZoneIdsControl="ngModel">
+                            <option [ngValue]="undefined">-- Select one --</option>
+                                <option *ngFor="let area of areas;" [value]="area.geoZoneId">{{area.name}}</option>
+                        </select>
+                        <label for="" class="float-label ">Area</label> -->
+            <ng-select
+              [items]="areas"
+              name="geoZoneIds"
+              ngModel
+              bindLabel="name"
+              bindValue="geoZoneId"
+              placeholder="Select Area"
+              [multiple]="true"
+            >
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="selectedGender"
+              class="form-control"
+              placeholder=""
+              name="gender"
+              ngModel
+              #genderControl="ngModel"
+              required
+            >
+              <option *ngFor="let key of genderType | keys" [value]="key">
+                {{ genderType[key] }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="genderControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="genderControl.errors.required">Gender is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="phoneNumber"
+              maxlength="20"
+              [pattern]="mobNumberPattern"
+              placeholder="  "
+              ngModel
+              #mobileControl="ngModel"
+              required
+              minlength="8"
+            />
+            <!-- (keypress)="onlyNumberKey($event)" -->
+
+            <label class="float-label">Mobile Number</label>
+          </div>
+          <div
+            *ngIf="mobileControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="mobileControl.errors.required">Mobile is required.</div>
+            <div *ngIf="mobileControl.errors.minlength">
+              Mobile Minimum Length is
+              {{ mobileControl.errors.minlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.maxlength">
+              Mobile Minimum Length is
+              {{ mobileControl?.errors?.maxlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl.errors.pattern">
+              Mobile number not valid (Must Start with zero or +).
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              name="birthdate"
+              [ngModel]="birthdate | date: 'yyyy-MM-dd'"
+              (ngModelChange)="birthdate = $event"
+              #birthdateControl="ngModel"
+              required
+            />
+            <label class="float-label">DOB</label>
+          </div>
+          <div
+            *ngIf="
+              birthdateControl.invalid &&
+              (birthdateControl.dirty || birthdateControl.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="birthdateControl.errors.required">
+              Birtdate is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4 mb-lg-3">
+          <input type="text" hidden name="personalPhoto" ngModel />
+          <label class="file w-100">
+            <div class="selected-item">
+              <img
+                class="img-preview position-absolute imgFile"
+                [src]="url"
+                alt=""
+              />
+              <img class="float-left imgFile" [src]="url" alt="" />
+              <span class="img-url"></span>
+              <!-- <i class="icon-cross"></i> -->
+              <!-- <img [src]="url" height="200"> <br/> -->
+            </div>
+
+            <input
+              type="file"
+              class="img-input"
+              id="file"
+              aria-label="File browser example"
+              (change)="getFiles($event)"
+            />
+            <span class="file-custom"></span>
+          </label>
+        </div>
+        <!-- <div class="col-lg-4 mb-4 mb-lg-3">
+                    <img [src]="url" height="200" class="img-preview position-absolute imgFile"> 
+                 <input type="text" hidden name="personalPhoto" ngModel>
+                         
+                    <input type="file"  id="personalPhoto" aria-label="File browser example"   (change)="getFiles($event)">
+                </div> -->
+        <!-- <div class="col-lg-4 mb-4 mb-lg-3">
+                    <label class="file w-100">
+                        <div class="selected-item">
+                            <img class="img-preview position-absolute imgFile" [src]="url" alt="" >
+                            <img class="float-left imgFile" [src]="url" alt="">
+                            <span class="img-url"></span>
+                            <i class="icon-cross"></i>
+                        </div>
+                        <input type="text" hidden name="personalPhoto" ngModel>
+                        <input type="file"  id="personalPhoto" aria-label="File browser example"   (change)="getFiles($event)">
+                        <span class="file-custom"></span>
+                    </label>
+                </div>  -->
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Expert chemist
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="expertChemist"
+              [(ngModel)]="expertChemist"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Active
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="isActive"
+              [(ngModel)]="isActive"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">credentials</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-lg-0 mb-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              disabled
+              id="username"
+              name="userName"
+              ngModel
+              disabled
+            />
+            <label for="username" class="float-label">username</label>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3"></div>
+        <!-- <div class="col-lg-3 col-12">
+                    <button class="btn form-control btn-primary  font-weight-bold" type="submit">Send
+                        credentials</button>
+                </div> -->
+      </div>
+    </div>
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backToList()"
+      >
+        Cancel
+      </button>
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Edit'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

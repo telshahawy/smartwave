@@ -1,0 +1,57 @@
+<mat-dialog-content>
+<form #cancelVisitForm ="ngForm"  (ngSubmit) ="cancelVisitForm.form.valid && onSubmit(cancelVisitForm)" >
+    <h1 mat-dialog-title> Cancel Visit <a href="javascript:;" class="float-right cursor-pointer" (click)="close()">
+        <mat-icon>close</mat-icon>
+     
+      </a></h1>
+   
+<!-- <div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white "> -->
+  
+        <div class="bordered-shadow mb-4 ">
+         
+            <div class="row m-0 py-xl-4 p-2 px-xl-5 sys-parameters">
+              
+                <div class="col-lg-6 mb-2 mb-lg-3" >
+                    <div class="select icon-down-arrow w-100">
+                        <select class="form-control"    name="reasonId"  [(ngModel)]="reasonId" #reasonControl="ngModel" required>
+                            <option [value]="null" disabled >-- Choose Reason --</option>
+                            <option *ngFor="let reason of reasons;" [value]="reason.reasonId">{{reason.reasonName}}</option>
+                        </select>
+                      
+                    </div>
+                    <div *ngIf="reasonControl.invalid && cancelVisitForm.submitted"
+                    class="alert alert-danger">
+                
+                  <div *ngIf="reasonControl.errors.required">
+                    Reason is required.
+                  </div>
+                  
+                                </div>
+                </div>
+         
+                <div class="col-12"></div>
+                <div class="col-lg-6 mb-2 mb-lg-3">
+                    <div class="form-group mb-0">
+                        <textarea type="text" class="form-control" placeholder="  " name="comments" ngModel></textarea>
+                        <label for="" class="float-label ">Comments</label>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+
+        <div class="row m-0 justify-content-end">
+            <button
+                class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                type="reset" (click)="close()">Cancel</button>
+            <button class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+                type="submit">Save</button>
+       
+        </div>
+    
+<!-- 
+</div> -->
+<!-- </div> -->
+</form>
+</mat-dialog-content>

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title> {{data.title}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+  <!-- <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field> -->
+</div>
+<div mat-dialog-actions class="text-center">
+  <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
+  <button  class="btn btn-danger mx-1" (click)="closePop()" cdkFocusInitial>Confirm</button>
+</div>

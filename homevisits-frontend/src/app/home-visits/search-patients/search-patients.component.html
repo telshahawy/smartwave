@@ -1,0 +1,267 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <!-- change id's and data-targets to what you need  -->
+
+  <form #patientForm="ngForm" (ngSubmit)="patientForm.form.valid && search()">
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">Visit Data</p>
+
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              [pattern]="mobNumberPattern"
+              placeholder="  "
+              ngModel
+              #mobileControl="ngModel"
+              required
+              minlength="8"
+              maxlength="20"
+              name="phoneNumber"
+              [(ngModel)]="phoneNumber"
+            />
+            <label class="float-label">Phone Number</label>
+          </div>
+          <div
+            *ngIf="mobileControl.invalid && patientForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="mobileControl?.errors?.required">
+              Mobile is required.
+            </div>
+            <div *ngIf="mobileControl?.errors?.minlength">
+              Mobile Minimum Length is
+              {{ mobileControl?.errors?.minlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.maxlength">
+              Mobile Maximum Length is
+              {{ mobileControl?.errors?.maxlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.pattern">
+              Mobile number not valid (Must Start with zero or +).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 justify-content-end">
+      <!-- <button
+                        class="btn form-control btn-primary btn-bordered border-0  col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                        type="button" (click)="clear(roleForm)"><i class="icon-garbage mr-1"></i>CLEAR</button> -->
+
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Search'"
+        [isLoading]="loading"
+      ></div>
+    </div>
+  </form>
+
+  <div class="table-meta mb-3">
+    <div class="row">
+      <!-- <div class="col-xl-3 col-lg-4 col-md-5">
+                <button (click)="gotoEdit()"
+                    class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4 " >
+                    Create new Role
+                </button>
+            </div> -->
+      <!-- <div
+                class="col-xl-8 col-lg-4 col-md-6 mt-3 mt-md-0 d-sm-flex align-items-center  justify-content-end">
+                <p class="m-0 mr-3 font-weight-bold">1 Selected</p>
+                <div class="dropdown ">
+                    <a class="form-control-sm d-inline-block  dropdown-toggle" href="#" role="button"
+                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Action
+                        <i class="icon-down-arrow px-3"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalOne">Request second visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalTwo">Re-assign visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalThree">Cancel selected visits</a>
+                    </div>
+
+                </div>
+            </div> -->
+      <!-- <div
+                class="col-lg-4 col-md-1 mt-3 mt-md-0 d-flex align-items-center justify-content-end  col-xl-1  m-0 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <defs>
+                        <style>
+                            .a {
+                                fill: none;
+                            }
+                        </style>
+                    </defs>
+                    <g transform="translate(-9472 107)">
+                        <rect class="a" width="32" height="32" transform="translate(9472 -107)" />
+                        <g transform="translate(9474.667 -104.333)">
+                            <path
+                                d="M22.76,6.719h-.729V3.906A3.911,3.911,0,0,0,18.125,0H8.542A3.911,3.911,0,0,0,4.635,3.906V6.719H3.906A3.911,3.911,0,0,0,0,10.625v6.25a3.911,3.911,0,0,0,3.906,3.906h.729v3.542a2.346,2.346,0,0,0,2.344,2.344H19.688a2.346,2.346,0,0,0,2.344-2.344V20.781h.729a3.911,3.911,0,0,0,3.906-3.906v-6.25A3.911,3.911,0,0,0,22.76,6.719ZM6.2,3.906A2.346,2.346,0,0,1,8.542,1.563h9.583a2.346,2.346,0,0,1,2.344,2.344V6.719H6.2ZM20.469,24.323a.782.782,0,0,1-.781.781H6.979a.782.782,0,0,1-.781-.781V16.615H20.469ZM25.1,16.875a2.346,2.346,0,0,1-2.344,2.344h-.729v-2.6H22.5a.781.781,0,0,0,0-1.563H4.167a.781.781,0,1,0,0,1.563h.469v2.6H3.906a2.346,2.346,0,0,1-2.344-2.344v-6.25A2.346,2.346,0,0,1,3.906,8.281H22.76A2.346,2.346,0,0,1,25.1,10.625Z" />
+                            <path
+                                d="M205.948,353h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -334.615)" />
+                            <path
+                                d="M205.948,417h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -395.281)" />
+                            <path d="M68.281,193h-2.5a.781.781,0,0,0,0,1.563h2.5a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-61.615 -182.948)" />
+                        </g>
+                    </g>
+                </svg>
+
+            </div> -->
+    </div>
+  </div>
+  <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+    <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+    <div class="spinner-border text-secondary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+    No Patients Avaliable
+  </div>
+  <div class="table-wrap table-responsive">
+    <!-- <perfect-scrollbar> -->
+    <!-- *ngIf="data?.items.length>0"  -->
+
+    <div style="max-width: 100%" *ngIf="data?.response.length > 0">
+      <table class="table m-0" mat-table [dataSource]="dataSource">
+        <!-- <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                      </ng-container> -->
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef>Gender</th>
+          <td mat-cell *matCellDef="let element">{{ element.genderName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="dob">
+          <th mat-header-cell *matHeaderCellDef>DOB</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.birthDate | date: "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
+        <!-- Weight Column -->
+
+        <ng-container matColumnDef="edit" >
+          <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
+          <td mat-cell *matCellDef="let row" class="white-space-nowrap">
+            <a href="javascript:;">
+              <span (click)="sendNotify(row.userId)"> select</span></a
+            >
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <!-- [pageSizeOptions]="[10, 25, 50, 100]" -->
+    </div>
+    <!-- </perfect-scrollbar> -->
+  </div>
+  <div class="table-meta mt-3">
+    <div class="row">
+      <button
+        (click)="gotoAddPatient()"
+        class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4"
+      >
+        Add new Patient
+      </button>
+      <!--  <div class="col-xl-3 col-lg-4 col-md-6">
+                <button
+                    class="btn btn-primary form-control form-control-sm font-weight-bold d-inline-block w-auto px-4 ">
+                    Create new visit
+                </button>
+            </div>
+            <div
+                class="col-xl-5 col-lg-4 col-md-6 justify-content-center mt-3 mt-md-0 d-flex align-items-center justify-content-md-end">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination m-0">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true" class="icon-back-1"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">30</a></li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true" class="icon-back-1 reverse"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div
+                class="col-xl-3 col-lg-4 col-md-6 mt-3 mt-md-0 d-sm-flex align-items-center  justify-content-end">
+                <p class="m-0 mr-3 font-weight-bold">1 Selected</p>
+                <div class="dropdown ">
+                    <a class="form-control-sm d-inline-block  dropdown-toggle" href="#" role="button"
+                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Action
+                        <i class="icon-down-arrow px-3"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalOne">Request second visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalTwo">Re-assign visit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#modalThree">Cancel selected visits</a>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-lg-4 col-md-6 mt-3 mt-md-0 d-flex align-items-center justify-content-end  col-xl-1  m-0 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <defs>
+                        <style>
+                            .a {
+                                fill: none;
+                            }
+                        </style>
+                    </defs>
+                    <g transform="translate(-9472 107)">
+                        <rect class="a" width="32" height="32" transform="translate(9472 -107)" />
+                        <g transform="translate(9474.667 -104.333)">
+                            <path
+                                d="M22.76,6.719h-.729V3.906A3.911,3.911,0,0,0,18.125,0H8.542A3.911,3.911,0,0,0,4.635,3.906V6.719H3.906A3.911,3.911,0,0,0,0,10.625v6.25a3.911,3.911,0,0,0,3.906,3.906h.729v3.542a2.346,2.346,0,0,0,2.344,2.344H19.688a2.346,2.346,0,0,0,2.344-2.344V20.781h.729a3.911,3.911,0,0,0,3.906-3.906v-6.25A3.911,3.911,0,0,0,22.76,6.719ZM6.2,3.906A2.346,2.346,0,0,1,8.542,1.563h9.583a2.346,2.346,0,0,1,2.344,2.344V6.719H6.2ZM20.469,24.323a.782.782,0,0,1-.781.781H6.979a.782.782,0,0,1-.781-.781V16.615H20.469ZM25.1,16.875a2.346,2.346,0,0,1-2.344,2.344h-.729v-2.6H22.5a.781.781,0,0,0,0-1.563H4.167a.781.781,0,1,0,0,1.563h.469v2.6H3.906a2.346,2.346,0,0,1-2.344-2.344v-6.25A2.346,2.346,0,0,1,3.906,8.281H22.76A2.346,2.346,0,0,1,25.1,10.625Z" />
+                            <path
+                                d="M205.948,353h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -334.615)" />
+                            <path
+                                d="M205.948,417h-4.167a.781.781,0,0,0,0,1.563h4.167a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-190.531 -395.281)" />
+                            <path d="M68.281,193h-2.5a.781.781,0,0,0,0,1.563h2.5a.781.781,0,0,0,0-1.562Z"
+                                transform="translate(-61.615 -182.948)" />
+                        </g>
+                    </g>
+                </svg>
+
+            </div> -->
+    </div>
+  </div>
+</div>

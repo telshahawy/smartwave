@@ -1,0 +1,203 @@
+<div class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white ">
+    <form [formGroup]="AgeSegmentForm" (ngSubmit)=" onSubmit()">
+        <div class="bordered-shadow mb-4 ">
+            <p class="font-weight-bold py-4 ">
+                {{segmentId?'Edit Segment ':'Add New Segment '}}
+            </p>
+
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+
+                <div class="col-lg-6 ">
+                    <div class="form-group ">
+                        <input type="text" class="form-control mb-2" placeholder=" " formControlName="name">
+                        <label class="float-label ">Segment name</label>
+                    </div>
+
+                    <div *ngIf="f.name.invalid  && (f.name.touched||submitted)" class="alert alert-danger">
+
+                        <div *ngIf="f.name.errors.required">
+                            Name is required.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+
+                        Status(Active)
+                        <label class="switch m-0 ml-3">
+                            <input type="checkbox" checked formControlName="isActive">
+                            <span class="slider round"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group ">
+                        Need Expert
+
+                        <label class="switch m-0 ml-3">
+                            <input type="checkbox" checked formControlName="needExpert">
+                            <span class="slider round"></span>
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="row m-0 py-xl-4 p-2 px-xl-5">
+                <div class="col-lg-4 ">
+                    <p class="font-weight-bold py-4 border-0"> Age From</p>
+
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="ageFromDay">
+                        <div class="float-label">Days</div>
+                        <div *ngIf="f.ageFromDay.errors  && (f.ageFromDay.touched||submitted)" class="alert alert-danger">
+                            <div *ngIf="f.ageFromDay.errors.required">
+                                Days is required.
+                            </div>
+                            <div *ngIf="f.ageFromDay.errors.min || f.ageFromDay.errors.max">
+                                Days must be greater than or equal 1 and less than or equal 29
+                            </div>
+                            <div *ngIf="f.ageFromDay.errors.pattern">
+                                Days is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="ageFromMonth">
+                        <div class="float-label">Months</div>
+                        <div *ngIf="f.ageFromMonth.errors  && (f.ageFromMonth.touched||submitted)" class="alert alert-danger">
+                            <div *ngIf="f.ageFromMonth.errors.required">
+                                Months is required.
+                            </div>
+                            <div *ngIf="f.ageFromMonth.errors.min || f.ageFromMonth.errors.max">
+                                Months must be greater than or equal 1 and less than or equal 11
+                            </div>
+                            <div *ngIf="f.ageFromMonth.errors.pattern">
+                                Months is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="ageFromYear">
+                        <div class="float-label">Years</div>
+                        <div *ngIf="f.ageFromYear.errors  && (f.ageFromYear.touched||submitted)" class="alert alert-danger">
+                            <div *ngIf="f.ageFromYear.errors.required">
+                                Years is required.
+                            </div>
+                            <div *ngIf="f.ageFromYear.errors.min || f.ageFromYear.errors.max">
+                                Months must be greater than or equal 1 and less than or equal 149
+                            </div>
+                            <div *ngIf="f.ageFromYear.errors.pattern">
+                                Years is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="checkbox switch  switch-checkbox ">
+                            <input name="checkbox" type="checkbox" checked formControlName="ageFromInclusive">
+                            <span class="control-indicator"></span>
+                            <span> Inclusive</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 ">
+                    <p class="font-weight-bold py-4 border-0"> Age To</p>
+
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="ageToDay">
+                        <label class="float-label ">Day</label>
+                        <div *ngIf="f.ageToDay.errors  && (f.ageToDay.touched||submitted)" class="alert alert-danger">
+                            <div *ngIf="f.ageToDay.errors.required">
+                                Days is required.
+                            </div>
+                            <div *ngIf="f.ageToDay.errors.min || f.ageToDay.errors.max">
+                                Days must be greater than or equal 1 and less than or equal 29
+                            </div>
+                            <div *ngIf="f.ageToDay.errors.pattern">
+                                Days is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="ageToMonth">
+                        <div class="float-label">Months</div>
+
+                        <div *ngIf="f.ageToMonth.errors  && (f.ageToMonth.touched||submitted)" class="alert alert-danger">
+                            <div *ngIf="f.ageToMonth.errors.required">
+                                Months is required.
+                            </div>
+                            <div *ngIf="f.ageToMonth.errors.min || f.ageToMonth.errors.max">
+                                Months must be greater than or equal 1 and less than or equal 11
+                            </div>
+                            <div *ngIf="f.ageToMonth.errors.pattern">
+                                Months is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <input type="number" class="form-control mb-2" placeholder=" " formControlName="ageToYear">
+                        <div class="float-label">Years</div>
+                        <div *ngIf="f.ageToYear.errors  && (f.ageToYear.touched||submitted)" class="alert alert-danger">
+                            <div *ngIf="f.ageToYear.errors.required">
+                                Years is required.
+                            </div>
+                            <div *ngIf="f.ageToYear.errors.min || f.ageToYear.errors.max">
+                                Months must be greater than or equal 1 and less than or equal 149
+                            </div>
+                            <div *ngIf="f.ageToYear.errors.pattern">
+                                Years is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="checkbox switch  switch-checkbox ">
+                            <input name="checkbox" type="checkbox" checked formControlName="ageToInclusive">
+                            <span class="control-indicator"></span>
+                            <span> Inclusive</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+        <div class="row m-0 justify-content-end">
+
+            <button class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3 "
+                type="button" (click)="backToList()">Cancel</button>
+
+                <div  style="display: contents;" form-submit-btn [btnLable]="'Save'"
+                [isLoading]="submitted "
+                >
+              </div>   
+        </div>
+    </form>
+
+</div>

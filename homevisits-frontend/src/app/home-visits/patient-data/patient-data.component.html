@@ -1,0 +1,289 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form>
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">Patient data</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              name="name"
+              [(ngModel)]="name"
+              disabled
+            />
+            <label for="" class="float-label">name</label>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="number"
+              class="form-control"
+              placeholder=""
+              name="phoneNumber"
+              [(ngModel)]="phoneNumber"
+              disabled
+            />
+            <label for="" class="float-label">Mobile number</label>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              name="birthDate"
+              [ngModel]="birthDate | date: 'dd/MM/yyyy'"
+              (ngModelChange)="birthDate = $event"
+              readonly
+            />
+            <label for="" class="float-label">Date of Birth</label>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              name="genderName"
+              [(ngModel)]="genderName"
+              disabled
+            />
+            <label for="" class="float-label">Gender</label>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Visit for a relative ?
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="relative"
+              [(ngModel)]="relative"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <!-- <div class="col-lg-4 mb-2 mb-lg-3" *ngIf="relative">
+          <div class="form-group mb-0 d-flex align-items-center">
+            I'm not Sure
+            <label class="switch m-0 ml-3">
+              <input
+                type="checkbox"
+                checked
+                name="notSure"
+                [(ngModel)]="notSure"
+              />
+              <span class="slider round"></span>
+            </label>
+            
+          </div>
+          <div class="form-group mb-0" style="top: 15px;">
+            <div class="select icon-down-arrow w-100">
+              <select
+              id="relativeAgeSegmentId"
+             name="relativeAgeSegmentId"
+             class="form-control"
+             placeholder=""
+             [(ngModel)]="relativeAgeSegmentId"
+             #segmentControl="ngModel"
+             required
+               >
+               <option [ngValue]="undefined" disabled>
+                 -- Choose Age Segment --
+               </option>
+               <option
+                 *ngFor="let segment of segments"
+                 [value]="segment.ageSegmentId"
+               >
+                 {{segment.name}}
+               </option>
+              </select>
+            </div>
+         </div>
+          <div class="form-group mb-0" style="top: 20px;">
+            <input
+              type="date"
+              class="form-control"
+              name="relativebirthdate"
+              [ngModel]="relativebirthdate | date: 'yyyy-MM-dd'"
+              (ngModelChange)="relativebirthdate = $event"
+              #birthdateControl="ngModel"
+              required
+            />
+            <label class="float-label">DOB</label>
+          </div>
+          
+        </div> -->
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4" *ngIf="relative">
+      <p class="font-weight-bold py-4">Visit for a relative</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <div class="select icon-down-arrow w-100">
+              <select
+              id="relativeAgeSegmentId"
+             name="relativeAgeSegmentId"
+             class="form-control"
+             placeholder=""
+             [(ngModel)]="relativeAgeSegmentId"
+             #segmentControl="ngModel"
+             required
+               >
+               <option [ngValue]="undefined" disabled>
+                 -- Choose Age Segment --
+               </option>
+               <option
+                 *ngFor="let segment of segments"
+                 [value]="segment.ageSegmentId"
+               >
+                 {{segment.name}}
+               </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+            type="date"
+            class="form-control"
+            name="relativebirthdate"
+            [ngModel]="relativebirthdate | date: 'yyyy-MM-dd'"
+            (ngModelChange)="relativebirthdate = $event"
+            #birthdateControl="ngModel"
+            required
+          />
+          <label class="float-label">DOB</label>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            I'm not Sure
+            <label class="switch m-0 ml-3">
+              <input
+                type="checkbox"
+                checked
+                name="notSure"
+                [(ngModel)]="notSure"
+              />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+       
+       
+
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4" *ngIf="!patientId">
+      <p class="font-weight-bold py-4">Address</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <table>
+          <tr *ngFor="let item of patientAddresses; let idx = index">
+            <!-- <td>Street {{item.street}} Building {{item.building}} </td> -->
+
+            <td>
+              <div class="form-check form-check-inline">
+                <input
+                  type="radio"
+                  [value]="item.patientAddressId"
+                  name="radiogroup"
+                  style="margin-right: 10px"
+                  [(ngModel)]="selectedAddress"
+                />
+                Street {{ item.street }} Building {{ item.building }} Floor
+                {{ item.floor }} Flat {{ item.flat }}
+                <span>, {{ item.zoneName }}</span>
+                <span>, {{ item.governateName }}</span>
+                <span>, {{ item.countryName }}</span>
+              </div>
+            </td>
+            <td>
+              <span style="color: green" *ngIf="item.isConfirmed"
+                >Verified</span
+              >
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+    <a
+      href="javascript:;"
+      (click)="gotoCreatePatientAddress()"
+      class="add-new font-weight-bold mx-0 mb-4 pb-4 d-flex align-items-center text-uppercase"
+    >
+      <svg
+        class="mr-2"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+      >
+        <path style="fill: #0c306f" d="M14,8H8v6H6V8H0V6H6V0H8V6h6Z" />
+      </svg>
+      Add new address
+    </a>
+
+
+    <div class="bordered-shadow mb-4" *ngIf="patientPhoneNumber.length">
+        <p class="font-weight-bold py-4">Phone Number</p>
+        <div class="row m-0 py-xl-4 p-2 px-xl-5">
+          <table>
+            <tr *ngFor="let item of patientPhoneNumber; let idx = index">  
+              <td>
+               {{item.phoneNumber}}
+              </td>
+            </tr>
+          </table>
+           </div>
+      </div>
+      <a
+        href="javascript:;"
+        (click)="openPhoneDialog()"
+        class="add-new font-weight-bold mx-0 mb-4 pb-4 d-flex align-items-center text-uppercase"
+      >
+        <svg
+          class="mr-2"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+        >
+          <path style="fill: #0c306f" d="M14,8H8v6H6V8H0V6H6V0H8V6h6Z" />
+        </svg>
+        Add Phone Number
+      </a>
+
+
+
+
+
+    <div class="row m-0 justify-content-end" *ngIf="!patientId">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backTosearch()"
+      >
+        back
+      </button>
+      <button
+        class="btn form-control btn-primary col-lg-2 col-6 font-weight-bold"
+        type="button"
+        (click)="gotoVisitData()"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+</div>

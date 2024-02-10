@@ -1,0 +1,354 @@
+<div
+  class="add-client inner-content position-relative mt-3 p-lg-4 p-2 mb-5 bg-white"
+>
+  <form
+    #chemistForm="ngForm"
+    (ngSubmit)="chemistForm.form.valid && onSubmit(chemistForm)"
+    novalidate
+  >
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">Add New Chemist</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder=" "
+              ngModel
+              #nameControl="ngModel"
+              required
+            />
+            <label class="float-label">Chemist Name</label>
+          </div>
+          <div
+            *ngIf="nameControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="nameControl.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="selectedCountryId"
+              name="country"
+              class="form-control"
+              placeholder="Country"
+              [(ngModel)]="selectedCountryId"
+              (ngModelChange)="onOptionsSelected($event)"
+            >
+              <option [ngValue]="''" >
+                -- Choose Country --
+              </option>
+              <option
+                *ngFor="let country of countries"
+                [value]="country.countryId"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="selectedGovernateId"
+              id="governate"
+              name="governate"
+              class="form-control"
+              placeholder=""
+              [(ngModel)]="selectedGovernateId"
+              (ngModelChange)="onGovernateOptionsSelected($event)"
+            >
+              <option [ngValue]="''" >
+                -- Choose Governate --
+              </option>
+              <option
+                *ngFor="let governate of governats"
+                [value]="governate.governateId"
+              >
+                {{ governate.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <!-- <select class="select2-multiple" aria-label="Select menu" multiple="multiple" name="geoZoneIds" ngModel required #geoZoneIdsControl="ngModel">
+                            <option [ngValue]="null" >-- Select Areas --</option>
+                                <option *ngFor="let area of areas;" [value]="area.geoZoneId">{{area.name}}</option>
+                                <option [value]="0">area 1</option>
+                                <option [value]="1">area 2</option>
+                                <option [value]="2">area 3</option>
+                        </select> -->
+            <ng-select
+              [items]="areas"
+              name="geoZoneIds"
+              ngModel
+              bindLabel="name"
+              placeholder="Select Area"
+              bindValue="geoZoneId"
+              [multiple]="true"
+            >
+            </ng-select>
+            <!-- <div class="areas">
+                            <div class="singleSelectedArea">
+                                <p>
+                                    area 1
+                                </p>
+                                <span aria-hidden="true">×</span>
+                            </div>
+                            <div class="singleSelectedArea">
+                                <p>
+                                    area 2
+                                </p>
+                                <span aria-hidden="true">×</span>
+                            </div>
+                        </div> -->
+
+            <!-- <label for="" class="float-label ">Areas</label> -->
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="select icon-down-arrow w-100">
+            <select
+              id="selectedGender"
+              name="area"
+              class="form-control"
+              placeholder=""
+              name="gender"
+              [(ngModel)]="gender"
+              #genderControl="ngModel"
+              required
+            >
+              <option [value]="null" >-- Choose Gender --</option>
+              <option *ngFor="let key of genderType | keys" [value]="key">
+                {{ genderType[key] }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="genderControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="genderControl.errors.required">Gender is required.</div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              name="phoneNumber"
+              [pattern]="mobNumberPattern"
+              placeholder="  "
+              ngModel
+              #mobileControl="ngModel"
+              required
+              minlength="8"
+              maxlength="20"
+            />
+            <!-- (keypress)="onlyNumberKey($event)" -->
+
+            <label class="float-label">Mobile Number</label>
+          </div>
+          <div
+            *ngIf="mobileControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="mobileControl?.errors?.required">
+              Mobile is required.
+            </div>
+            <div *ngIf="mobileControl?.errors?.minlength">
+              Mobile Minimum Length is
+              {{ mobileControl?.errors?.minlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.maxlength">
+              Mobile Maximum Length is
+              {{ mobileControl?.errors?.maxlength?.requiredLength }}
+            </div>
+            <div *ngIf="mobileControl?.errors?.pattern">
+              Mobile number not valid (Must Start with zero or +).
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3">
+          <div class="form-group mb-0">
+            <input
+              type="date"
+              class="form-control"
+              name="birthDate"
+              ngModel
+              #birthdateControl="ngModel"
+              required
+            />
+            <label class="float-label">DOB</label>
+          </div>
+          <div
+            *ngIf="birthdateControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="birthdateControl.errors.required">
+              Birthdate is required.
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-lg-4 mb-4 mb-lg-3">
+                    <img [src]="url" height="200" class="img-preview position-absolute imgFile"> 
+                 <input type="text" hidden name="personalPhoto" ngModel>
+                         
+                    <input type="file"  id="personalPhoto" aria-label="File browser example"   (change)="getFiles($event)">
+                </div> -->
+
+        <div class="col-lg-4 mb-4 mb-lg-3">
+          <input type="text" hidden name="personalPhoto" ngModel />
+          <label class="file w-100">
+            <div class="selected-item">
+              <img
+                class="img-preview position-absolute imgFile"
+                [src]="url"
+                alt=""
+              />
+              <img class="float-left imgFile" [src]="url" alt="" />
+              <span class="img-url"></span>
+              <!-- <i class="icon-cross"></i> -->
+              <!-- <img [src]="url" height="200"> <br/> -->
+            </div>
+
+            <input
+              type="file"
+              class="img-input"
+              id="file"
+              aria-label="File browser example"
+              (change)="getFiles($event)"
+            />
+            <span class="file-custom"></span>
+          </label>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Expert chemist
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="expertChemist"
+              [(ngModel)]="expertChemist"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-3 d-flex align-items-center">
+          Active
+          <label class="switch m-0 ml-3">
+            <input
+              type="checkbox"
+              checked
+              name="isActive"
+              [(ngModel)]="isActive"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="bordered-shadow mb-4">
+      <p class="font-weight-bold py-4">credentials</p>
+      <div class="row m-0 py-xl-4 p-2 px-xl-5">
+        <div class="col-lg-4 mb-lg-0 mb-3">
+          <div class="form-group mb-0">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="  "
+              id="username"
+              name="userName"
+              ngModel
+              #usernameControl="ngModel"
+              required
+            />
+            <label for="username" class="float-label">username</label>
+          </div>
+          <div
+            *ngIf="usernameControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="usernameControl.errors.required">
+              Username is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-lg-0 mb-3">
+          <div class="form-group mb-0">
+            <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" -->
+            <input
+              type="password"
+              class="form-control"
+              placeholder=" "
+              id="loginPass"
+              ngModel
+              name="password"
+              #passwordControl="ngModel"
+              required
+              minlength="8"
+            />
+            <label for="exampleInputPassword1" class="float-label"
+              >Password</label
+            >
+            <span class="showpass position-absolute" (click)="TogglePassword()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <g style="opacity: 0.6">
+                  <rect style="fill: none" width="24" height="24" />
+                  <path
+                    style="fill: #1b263c"
+                    d="M11,15a11.731,11.731,0,0,1-6.726-2.1A11.837,11.837,0,0,1,0,7.5a11.818,11.818,0,0,1,22,0,11.836,11.836,0,0,1-4.273,5.4A11.731,11.731,0,0,1,11,15ZM11,2.5a5,5,0,1,0,5,5A5.005,5.005,0,0,0,11,2.5Zm0,8a3,3,0,1,1,3-3A3,3,0,0,1,11,10.5Z"
+                    transform="translate(1.12 4.5)"
+                  />
+                </g>
+              </svg>
+            </span>
+          </div>
+          <div
+            *ngIf="passwordControl.invalid && chemistForm.submitted"
+            class="alert alert-danger"
+          >
+            <div *ngIf="passwordControl.errors.required">
+              Password is required.
+            </div>
+            <div *ngIf="passwordControl.errors.minlength">
+              Password Minimum Length is
+              {{ passwordControl.errors.minlength?.requiredLength }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3"></div>
+        <!-- <div class="col-lg-3 col-12">
+                    <button class="btn form-control btn-primary  font-weight-bold" type="submit">Send
+                        credentials</button>
+                </div> -->
+      </div>
+    </div>
+    <div class="row m-0 justify-content-end">
+      <button
+        class="btn form-control btn-primary btn-bordered col-lg-2 col-6 font-weight-bold mr-lg-3"
+        type="button"
+        (click)="backToList()"
+      >
+        Cancel
+      </button>
+      <div
+        style="display: contents"
+        form-submit-btn
+        [btnLable]="'Save'"
+        [isLoading]="submitted"
+      ></div>
+    </div>
+  </form>
+</div>

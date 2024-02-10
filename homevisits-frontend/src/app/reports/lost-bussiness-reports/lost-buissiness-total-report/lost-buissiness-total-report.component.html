@@ -1,0 +1,99 @@
+<div class="bg-white p-4 mb-5">
+    <div class="header-section">
+      <div class="logo">
+        <img src="../../../../assets/alfa-logo.png" alt="" />
+      </div>
+      <h4 class="font-weight-bold mt-3 mb-2 text-uppercase">Lost Business Report</h4>
+    </div>
+    <div class="inner-content position-relative mt-3 p-4 mb-3 bg-white container-fluid">
+      <div>
+        <div>
+          <form class="mb-0">
+            <div>
+              <div class="row m-0 ">
+                <div class="col-lg-4 ">
+                  <div class="form-group mb-0">
+                    <label class="text-muted">DATE FROM</label>
+  
+                    <p class="font-weight-bold">{{visitList?.dateFrom | date: "dd/MM/yyyy"}}</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 ">
+                  <div class="form-group mb-0">
+                    <label class="text-muted">DATE TO</label>
+  
+                    <p class="font-weight-bold">{{visitList?.dateTo | date: "dd/MM/yyyy" }}</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 ">
+                  <div class="form-group mb-0">
+                    <label class="text-muted">COUNTRY</label>
+  
+                    <p class="font-weight-bold">{{visitList?.country}}</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 ">
+                  <div class="form-group mb-0">
+                    <label class="text-muted">GOVERNORATE</label>
+  
+                    <p class="font-weight-bold">{{visitList?.governorate}}</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 ">
+                  <div class="form-group mb-0">
+                    <label class="text-muted">AREA</label>
+  
+                    <p class="font-weight-bold">{{visitList?.area}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <div class="inner-content have-table position-relative p-4 bg-white container-fluid">
+      <div class="mt-4 mb-4 text-center" [hidden]="!loading">
+        <!-- <mat-progress-bar mode="indeterminate" value="100"></mat-progress-bar> -->
+        <div class="spinner-border text-secondary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="no-results-found rounded mx-auto text-center" *ngIf="isShowEmpty">
+        No Data Avaliable
+      </div>
+      <div class="table-wrap table-responsive">
+        <!-- <perfect-scrollbar> -->
+        <!-- *ngIf="data?.items.length>0"  -->
+  
+        <div style="max-width: 100%" *ngIf="data?.nonDetailedVisitReports?.length > 0">
+          <table class="table m-0" mat-table [dataSource]="dataSource">
+            <!-- Status Column -->
+            <ng-container matColumnDef="TIME">
+              <th mat-header-cell *matHeaderCellDef>Time</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.time}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="COUNT">
+              <th mat-header-cell *matHeaderCellDef>VISITS COUNT</th>
+              <td mat-cell *matCellDef="let element">{{ element.visitsCount }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+        <!-- </perfect-scrollbar> -->
+      </div>
+      <div class="table-meta mt-4">
+        <div class="row">
+          <p class="col-lg-4 col-md-6">{{visitList?.printedBy}}</p>
+          <p class="col-lg-4 col-md-6 font-weight-bold text-center">Page 1 of 1</p>
+          <p class="col-lg-4 col-md-6 text-right">{{visitList?.printedDate | date: 'dd/MM/yyyy hh:mm a'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

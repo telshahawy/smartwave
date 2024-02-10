@@ -1,0 +1,26 @@
+agm-map{
+    height:100%;
+    width: 100%;
+    min-height: 100%;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+::ng-deep .map .point{
+    width: 100%;
+
+}
+::ng-deep .map .point .inner-content{
+    top: 0;
+    left: 10%;
+    bottom: unset;
+}
+.chemistCard {
+    top: 25%;
+    left: 45%;
+  }
+  
+  .my-full-screen-dialog .mat-dialog-container {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+  }

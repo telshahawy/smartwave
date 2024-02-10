@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="QueryHandler\" />
+    <Folder Include="Logger\" />
+    <Folder Include="Cash\" />
+    <Folder Include="DbContext\" />
+    <Folder Include="IdentityServer\" />
+    <Folder Include="Notification\" />
+    <Folder Include="GmapServices\" />
+    <Folder Include="Integrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SW.HomeVisits.Domain\SW.HomeVisits.Domain.csproj" />
+    <ProjectReference Include="..\..\Framework\SW.Framework\SW.Framework.csproj" />
+    <ProjectReference Include="..\SW.HomeVisits.Application.Abstract\SW.HomeVisits.Application.Abstract.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.8" />
+    <PackageReference Include="Scrutor" Version="3.2.2" />
+    <PackageReference Include="IdentityServer4" Version="4.1.0" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.0" />
+  </ItemGroup>
+</Project>
